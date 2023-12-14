@@ -61,7 +61,7 @@ debug: true
 logging:
   level:
     io.swagger.*: error
-    com.zbjk.crmeb: debug
+    com.zbjk.crmeb: info
     org.springframework.boot.autoconfigure: ERROR
   config: classpath:logback-spring.xml
   file:
