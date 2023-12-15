@@ -1,6 +1,7 @@
 package com.zbkj.admin.filter;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.zbkj.common.vo.LoginUserVo;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,6 +43,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             // 将authentication信息放入到上下文对象中
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
+
+
         filterChain.doFilter(request, response);
-    }
+        }
 }

@@ -120,6 +120,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/admin/upload/file").permitAll()
                 // 代码生成器
                 .antMatchers("/api/codegen/code").permitAll()
+                .antMatchers("/api/public/**").anonymous()
+                .antMatchers("/api/front/product/detail").anonymous()
+                .antMatchers("/api/front/coupons").anonymous()
+                .antMatchers("/api/front/index").permitAll()
+                .antMatchers("/api/front/bargain/list").permitAll()
+                .antMatchers( "/api/front/combination/list").permitAll()
+                .antMatchers("/api/front/index/product").permitAll()
+                .antMatchers("/api/front/combination/index").permitAll()
+                .antMatchers("/api/front/bargain/index").permitAll()
+                .antMatchers("/api/front/index/color/config").permitAll()
+                .antMatchers("/api/front/product/list").permitAll()
+                .antMatchers("/api/front/product/sku/detail").permitAll()
+                .antMatchers("/api/front/index/get/version").permitAll()
+                .antMatchers("/api/front/image/domain").permitAll()
+                .antMatchers("/api/front/product/leaderboard").permitAll()
 //            .antMatchers("/wx/user/*/login","/citylife/nocheck/**").anonymous()
             .antMatchers(
                     HttpMethod.GET,
@@ -140,7 +155,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/druid/**").anonymous()
             .antMatchers("/captcha/get", "/captcha/check").anonymous()
             .antMatchers("/api/admin/payment/callback/**").anonymous()
-            .antMatchers("/api/public/**").anonymous()
             // 除上面外的所有请求全部需要鉴权认证
             .anyRequest().authenticated()
             .and()
