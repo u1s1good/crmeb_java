@@ -5,10 +5,9 @@
       <div class="dashboard-workplace-header-tip">
       <p class="dashboard-workplace-header-tip-title" v-text="psInfo.user.nickname || '-'"></p>
       <div class="dashboard-workplace-header-tip-desc">
-      <span class="dashboard-workplace-header-tip-desc-sp pb-1">余额: {{ psInfo.balance }}</span>
       <span class="dashboard-workplace-header-tip-desc-sp pb-1">总计订单: {{ psInfo.allOrderCount }}</span>
       <span class="dashboard-workplace-header-tip-desc-sp pb-1">总消费金额: {{ psInfo.allConsumeCount }}</span>
-      <span class="dashboard-workplace-header-tip-desc-sp">积分: {{ psInfo.integralCount }}</span>
+      
       <span class="dashboard-workplace-header-tip-desc-sp">本月订单: {{ psInfo.mothOrderCount }}</span>
       <span class="dashboard-workplace-header-tip-desc-sp">本月消费金额: {{ psInfo.mothConsumeCount }}</span>
       </div>
@@ -70,11 +69,7 @@
         Visible: false,
         list: [
           { val: '0', label: '消费记录' },
-          { val: '1', label: '积分明细' },
-          { val: '2', label: '签到记录' },
           { val: '3', label: '持有优惠券' },
-          { val: '4', label: '余额变动' },
-          { val: '5', label: '好友关系' }
         ],
         tableData: {
           data: [],

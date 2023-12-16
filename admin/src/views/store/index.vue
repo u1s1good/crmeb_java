@@ -20,7 +20,7 @@
         <router-link :to=" { path:'/store/list/creatProduct' } ">
           <el-button size="small" type="primary" class="mr10" v-hasPermi="['admin:product:save']">添加商品</el-button>
         </router-link>
-        <el-button size="small" type="success" class="mr10" @click="onCopy" v-hasPermi="['admin:product:save']">商品采集</el-button>
+        <!-- <el-button size="small" type="success" class="mr10" @click="onCopy" v-hasPermi="['admin:product:save']">商品采集</el-button> -->
         <el-button size="small" icon="el-icon-upload2" @click="exports" v-hasPermi="['admin:export:excel:product']">导出</el-button>
       </div>
       <el-table

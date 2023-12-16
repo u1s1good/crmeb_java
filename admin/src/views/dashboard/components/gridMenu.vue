@@ -33,14 +33,14 @@
                 </router-link>
             </el-card>
         </el-col>
-        <el-col v-bind="grid" class="ivu-mb" v-if="checkPermi(['admin:pass:login'])">
+        <!-- <el-col v-bind="grid" class="ivu-mb" v-if="checkPermi(['admin:pass:login'])">
             <el-card :bordered="false">
                 <router-link :to="{path:'/operation/systemSms/config'}">
                     <i class="el-icon-message" style="color:#ffd666" />
                     <p>短信配置</p>
                 </router-link>
             </el-card>
-        </el-col>
+        </el-col> -->
         <el-col v-bind="grid" class="ivu-mb" v-if="checkPermi(['admin:article:list'])">
             <el-card :bordered="false">
                 <router-link :to="{path:'/content/articleManager'}">
@@ -49,14 +49,14 @@
                 </router-link>
             </el-card>
         </el-col>
-        <el-col v-bind="grid" class="ivu-mb" v-if="checkPermi(['admin:retail:list'])">
+        <!-- <el-col v-bind="grid" class="ivu-mb" v-if="checkPermi(['admin:retail:list'])">
             <el-card :bordered="false">
                 <router-link :to="{path:'/distribution/index'}">
                     <i class="el-icon-s-finance" style="color:#ff85c0" />
                     <p>分销管理</p>
                 </router-link>
             </el-card>
-        </el-col>
+        </el-col> -->
         <el-col v-bind="grid" class="ivu-mb" v-if="checkPermi(['admin:coupon:list'])">
             <el-card :bordered="false">
                 <router-link :to="{path:'/marketing/coupon/list'}">

@@ -12,7 +12,7 @@
         <settings />
       </right-panel>
     </div>
-    <div class="open-image" @click="clear" v-if="openImage"><img src="@/assets/imgs/pc1.png" alt=""></div>
+    
   </div>
 </template>
 
@@ -26,7 +26,6 @@ export default {
   name: 'Layout',
   data(){
     return {
-      openImage: true
     }
   },
   components: {
@@ -56,9 +55,6 @@ export default {
     }
   },
   methods: {
-    clear () {
-      this.openImage = false;
-    },
     handleClickOutside() {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
     }

@@ -14,17 +14,7 @@
           <el-option :value="item.id" v-for="(item, index) in groupList" :key="index" :label="item.groupName"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="用户标签：">
-        <el-select v-model="labelData" placeholder="请选择"  class="selWidth" clearable filterable multiple >
-          <el-option :value="item.id" v-for="(item, index) in labelLists" :key="index" :label="item.name"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="推广员">
-        <el-radio-group v-model="ruleForm.isPromoter">
-          <el-radio :label="true">开启</el-radio>
-          <el-radio :label="false">关闭</el-radio>
-        </el-radio-group>
-      </el-form-item>
+      
       <el-form-item label="状态">
         <el-radio-group v-model="ruleForm.status">
           <el-radio :label="true">开启</el-radio>
