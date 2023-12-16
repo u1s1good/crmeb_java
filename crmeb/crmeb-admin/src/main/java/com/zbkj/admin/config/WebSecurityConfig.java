@@ -134,7 +134,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/front/product/sku/detail").permitAll()
                 .antMatchers("/api/front/index/get/version").permitAll()
                 .antMatchers("/api/front/image/domain").permitAll()
-                .antMatchers("/api/front/product/leaderboard").permitAll()
+                .antMatchers("/api/front/wechat/**").permitAll()
+//                .antMatchers("/api/front/secill/index").permitAll()
+//                .antMatchers("/api/front/combination/indexd").permitAll()
 //            .antMatchers("/wx/user/*/login","/citylife/nocheck/**").anonymous()
             .antMatchers(
                     HttpMethod.GET,
