@@ -57,12 +57,12 @@ spring:
         time-between-eviction-runs: -1 #逐出扫描的时间间隔(毫秒) 如果为负数,则不运行逐出线程, 默认-1
 
 
-debug: true
+#debug: true
 logging:
   level:
-    io.swagger.*: error
-    com.zbjk.crmeb: info
-    org.springframework.boot.autoconfigure: ERROR
+#    io.swagger.*: error
+    com.zbjk.crmeb: ERROR
+#    org.springframework.boot.autoconfigure: ERROR
   config: classpath:logback-spring.xml
   file:
     path: ./crmeb_log
@@ -84,7 +84,7 @@ mybatis-plus:
 #swagger 配置
 swagger:
   basic:
-    enable: true #是否开启
+    enable: flase #是否开启
     check: false #是否打开验证
     username: #访问swagger的账号
     password: #访问swagger的密码

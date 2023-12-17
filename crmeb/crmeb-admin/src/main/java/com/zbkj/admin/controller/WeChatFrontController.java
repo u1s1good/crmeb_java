@@ -24,7 +24,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController("WeChatFrontController")
-@RequestMapping("api/front/wechat")
+@RequestMapping("api/front/restful/wechat")
 @Api(tags = "微信 -- 开放平台")
 public class WeChatFrontController {
     @Autowired

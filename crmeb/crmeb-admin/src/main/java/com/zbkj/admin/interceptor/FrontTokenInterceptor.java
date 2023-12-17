@@ -25,7 +25,8 @@ import javax.servlet.http.HttpServletResponse;
  *  +----------------------------------------------------------------------
  */
 @Component
-public class FrontTokenInterceptor implements HandlerInterceptor {
+public class
+FrontTokenInterceptor implements HandlerInterceptor {
 
     @Autowired
     private FrontTokenComponent frontTokenComponent;
