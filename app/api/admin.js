@@ -77,7 +77,7 @@ export function setOrderRefund(data) {
  * @returns {*}
  */
 export function getLogistics() {
-  return request.get("/logistics", {}, { login: false });
+  return request.get("restful/logistics", {}, { login: false });
 }
 
 /**

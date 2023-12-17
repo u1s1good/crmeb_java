@@ -104,7 +104,7 @@
         </el-table-column>
         <el-table-column type="selection" width="55">
         </el-table-column>
-        <el-table-column prop="uid" label="ID" min-width="80" />
+        <!-- <el-table-column prop="uid" label="ID" min-width="80" /> -->
         <el-table-column label="头像" min-width="80">
           <template slot-scope="scope">
             <div class="demo-image__preview">
@@ -382,8 +382,8 @@ export default {
   mounted() {
     this.getList()
     this.groupLists()
-    this.levelLists()
-    this.getTagList()
+    //this.levelLists()
+    //this.getTagList()
     this.getCityList()
   },
   methods: {

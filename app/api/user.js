@@ -21,7 +21,7 @@ export function userShare(){
  * @param data object 用户账号密码
  */
 export function loginH5(data) {
-  return request.post("login", data, { noAuth : true });
+  return request.post("restful/login", data, { noAuth : true });
 }
 
 /**
@@ -29,14 +29,14 @@ export function loginH5(data) {
  * @param data object 用户手机号 也只能
  */
 export function loginMobile(data) {
-  return request.post("login/mobile", data, { noAuth : true });
+  return request.post("restful/login/mobile", data, { noAuth : true });
 }
 
 /**
  * 验证码key
  */
 export function getCodeApi() {
-  return request.get("verify_code", {}, { noAuth: true });
+  return request.get("restful/verify_code", {}, { noAuth: true });
 }
 
 /**
@@ -44,7 +44,7 @@ export function getCodeApi() {
  * @param data object 用户手机号
  */
 export function registerVerify(phone){
-  return request.post('sendCode', { phone: phone },{noAuth:true},1)
+  return request.post('restful/sendCode', { phone: phone },{noAuth:true},1)
 }
 
 /**
@@ -52,7 +52,7 @@ export function registerVerify(phone){
  * @param data object 用户手机号 验证码 密码
  */
 export function register(data) {
-  return request.post("register", data, { noAuth : true });
+  return request.post("restful/register", data, { noAuth : true });
 }
 
 /**
@@ -60,7 +60,7 @@ export function register(data) {
  * @param data object 用户手机号 验证码 密码
  */
 export function registerReset(data) {
-  return request.post("register/reset", data, { noAuth: true });
+  return request.post("restful/register/reset", data, { noAuth: true });
 }
 
 /**
@@ -347,7 +347,7 @@ export function getRechargeApi() {
  */
 export function setVisit(data)
 {
-  return request.post('user/set_visit', {...data}, { noAuth:true});
+  return request.post('restful/user/set_visit', {...data}, { noAuth:true});
 }
 
 /**

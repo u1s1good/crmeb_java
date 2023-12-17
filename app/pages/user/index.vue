@@ -31,15 +31,15 @@
 							</view>
 						</view>
 						<view class="num-wrapper">
-							<view class="num-item" @click="goMenuPage('/pages/users/user_money/index')">
+							<!-- <view class="num-item" @click="goMenuPage('/pages/users/user_money/index')">
 								<text
 									class="num">{{userInfo.nowMoney && uid ?Number(userInfo.nowMoney).toFixed(2):0}}</text>
 								<view class="txt">余额</view>
-							</view>
-							<view class="num-item" @click="goMenuPage('/pages/users/user_integral/index')">
+							</view> -->
+							<!-- <view class="num-item" @click="goMenuPage('/pages/users/user_integral/index')">
 								<text class="num">{{userInfo.integral && uid ? userInfo.integral: 0}}</text>
 								<view class="txt">积分</view>
-							</view>
+							</view> -->
 							<view class="num-item" @click="goMenuPage('/pages/users/user_coupon/index')">
 								<text class="num">{{userInfo.couponCount && uid ? userInfo.couponCount : 0}}</text>
 								<view class="txt">优惠券</view>
@@ -111,7 +111,7 @@
 							<!-- #endif -->
 						</view>
 					</view>
-					<image src="/static/images/support.png" alt="" class='support'>
+					<!-- <image src="/static/images/support.png" alt="" class='support'> -->
 					<view class="uni-p-b-98"></view>
 				</view>
 

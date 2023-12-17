@@ -10,7 +10,7 @@ import request from "@/utils/request.js";
 */
 export function getIndexData()
 {
-  return request.get("index",{},{ noAuth : true});
+  return request.get("restful/index",{},{ noAuth : true});
 }
 
 /**
@@ -19,7 +19,7 @@ export function getIndexData()
 */
 export function getLogo()
 {
-  return request.get('wechat/getLogo', {}, { noAuth : true});
+  return request.get('restful/wechat/getLogo', {}, { noAuth : true});
 }
 
 
@@ -44,7 +44,7 @@ export function setCouponReceive(couponId){
  * @param object data
 */
 export function getCoupons(data){
-  return request.get('coupons',data,{noAuth:true})
+  return request.get('restful/coupons',data,{noAuth:true})
 }
 
 /**
@@ -60,7 +60,7 @@ export function getUserCoupons(data){
  * 
 */
 export function getArticleCategoryList(){
-  return request.get('article/category/list',{},{noAuth:true})
+  return request.get('restful/article/category/list',{},{noAuth:true})
 }
 
 /**
@@ -69,7 +69,7 @@ export function getArticleCategoryList(){
  * 
 */
 export function getArticleList(cid,data){
-  return request.get('article/list/' + cid, data,{noAuth:true})
+  return request.get('restful/article/list/' + cid, data,{noAuth:true})
 }
 
 /**
@@ -77,7 +77,7 @@ export function getArticleList(cid,data){
  * 
 */
 export function getArticleHotList(){
-  return request.get('article/hot/list',{},{noAuth:true});
+  return request.get('restful/article/hot/list',{},{noAuth:true});
 }
 
 /**
@@ -85,7 +85,7 @@ export function getArticleHotList(){
  * 
 */
 export function getArticleBannerList(){
-  return request.get('article/banner/list',{},{noAuth:true})
+  return request.get('restful/article/banner/list',{},{noAuth:true})
 }
 
 /**
@@ -94,7 +94,7 @@ export function getArticleBannerList(){
  * 
 */
 export function getArticleDetails(id){
-  return request.get('article/info',id,{noAuth:true});
+  return request.get('restful/article/info',id,{noAuth:true});
 }
 
 /**
@@ -102,7 +102,7 @@ export function getArticleDetails(id){
  * @param object data
 */
 export function loginMobile(data){
-  return request.post('login/mobile',data,{noAuth:true})
+  return request.post('restful/login/mobile',data,{noAuth:true})
 }
 
 /**
@@ -110,7 +110,7 @@ export function loginMobile(data){
  * @param object phone
 */
 export function verifyCode(){
-  return request.get('verify_code', {},{noAuth:true})
+  return request.get('restful/verify_code', {},{noAuth:true})
 }
 
 /**
@@ -118,7 +118,7 @@ export function verifyCode(){
  * @param object phone
 */
 export function registerVerify(phone){
-  return request.post('sendCode', { phone: phone },{noAuth:true},1)
+  return request.post('restful/sendCode', { phone: phone },{noAuth:true},1)
 }
 
 /**
@@ -127,7 +127,7 @@ export function registerVerify(phone){
  * 
 */
 export function phoneRegister(data){
-  return request.post('register',data,{noAuth:true});
+  return request.post('restful/register',data,{noAuth:true});
 }
 
 /**
@@ -136,7 +136,7 @@ export function phoneRegister(data){
  * 
 */
 export function phoneRegisterReset(data){
-  return request.post('register/reset',data,{noAuth:true})
+  return request.post('restful/register/reset',data,{noAuth:true})
 }
 
 /**
@@ -145,7 +145,7 @@ export function phoneRegisterReset(data){
  * 
 */
 export function phoneLogin(data){
-  return request.post('login',data,{noAuth:true})
+  return request.post('restful/login',data,{noAuth:true})
 }
 
 /**
@@ -196,7 +196,7 @@ export function logout(){
  */
 export function getTemlIds(data)
 {
-  return request.get('wechat/program/my/temp/list', data , { noAuth:true});
+  return request.get('restful/wechat/program/my/temp/list', data , { noAuth:true});
 }
 
 /**
@@ -204,26 +204,26 @@ export function getTemlIds(data)
  */
 export function pink()
 {
-  return request.get('pink', {}, { noAuth:true});
+  return request.get('restful/pink', {}, { noAuth:true});
 }
 
 /**
  * 获取城市信息
  */
 export function getCity() {
-  return request.get('city/list', { }, { noAuth: true });
+  return request.get('restful/city/list', { }, { noAuth: true });
 }
 
 /**
  * 获取小程序直播列表
  */
 export function getLiveList(page,limit) {
-  return request.get('wechat/live', { page, limit}, { noAuth: true });
+  return request.get('restful/wechat/live', { page, limit}, { noAuth: true });
 }
 
 /**
  * 获取小程序二维码
  */
 export function getQrcode(data) {
-  return request.post('qrcode/get',data,{ noAuth: true });
+  return request.post('restful/qrcode/get',data,{ noAuth: true });
 }

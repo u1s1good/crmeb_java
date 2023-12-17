@@ -6,7 +6,7 @@ import request from "@/utils/request.js";
  * 
  */
 export function getProductDetail(id, type) {
-	return request.get('product/detail/' + id + '?type=' + type, {}, {
+	return request.get('restful/product/detail/' + id + '?type=' + type, {}, {
 		noAuth: true
 	});
 }
@@ -70,7 +70,7 @@ export function postCartAdd(data) {
  * 
  */
 export function getCategoryList() {
-	return request.get('category', {}, {
+	return request.get('restful/category', {}, {
 		noAuth: true
 	});
 }
@@ -80,7 +80,7 @@ export function getCategoryList() {
  * @param object data
  */
 export function getProductslist(data) {
-	return request.get('products', data, {
+	return request.get('restful/products', data, {
 		noAuth: true
 	});
 }
@@ -90,7 +90,7 @@ export function getProductslist(data) {
  * 
  */
 export function getProductHot(page, limit) {
-	return request.get("product/hot", {
+	return request.get("restful/product/hot", {
 		page: page === undefined ? 1 : page,
 		limit: limit === undefined ? 4 : limit
 	}, {
@@ -116,7 +116,7 @@ export function collectAll(id, category) {
  * 
  */
 export function getGroomList(type, data) {
-	return request.get('index/product/' + type, data, {
+	return request.get('restful/index/product/' + type, data, {
 		noAuth: true
 	});
 }
@@ -136,7 +136,7 @@ export function getCollectUserList(data) {
  * 
  */
 export function getReplyList(id, data) {
-	return request.get('reply/list/' + id, data,{
+	return request.get('restful/reply/list/' + id, data,{
 		noAuth: true
 	})
 }
@@ -146,7 +146,7 @@ export function getReplyList(id, data) {
  * @param int id
  */
 export function getReplyConfig(id) {
-	return request.get('reply/config/' + id,{},{
+	return request.get('restful/reply/config/' + id,{},{
 		noAuth: true
 	});
 }
@@ -156,7 +156,7 @@ export function getReplyConfig(id) {
  * 
  */
 export function getSearchKeyword() {
-	return request.get('search/keyword', {}, {
+	return request.get('restful/search/keyword', {}, {
 		noAuth: true
 	});
 }
@@ -175,7 +175,7 @@ export function storeListApi(data) {
  * @param object data
  */
 export function getProductGood() {
-	return request.get('product/good',{},{ noAuth : true});
+	return request.get('restful/product/good',{},{ noAuth : true});
 }
 
 /**
@@ -185,7 +185,7 @@ export function getProductGood() {
  * 
  */
 export function getReplyProduct(id) {
-	return request.get('reply/product/' + id, {},{
+	return request.get('restful/reply/product/' + id, {},{
 		noAuth: true
 	})
 }

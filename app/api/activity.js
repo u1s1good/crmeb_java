@@ -10,7 +10,7 @@ import request from "@/utils/request.js";
  * 
 */
 export function getCombinationList(data) {
-  return request.get('combination/list', data,{noAuth:true});
+  return request.get('restful/combination/list', data,{noAuth:true});
 }
 
 /**
@@ -39,14 +39,14 @@ export function postCombinationRemove(data) {
  * 拼团 更多拼团
  */
 export function getCombinationMore(data) {
-  return request.get("combination/more",data,{noAuth:true});
+  return request.get("restful/combination/more",data,{noAuth:true});
 }
 
 /**
  * 砍价列表
  */
 export function getBargainList(data) {
-  return request.get("bargain/list", data,{noAuth:true});
+  return request.get("restful/bargain/list", data,{noAuth:true});
 }
 
 /**
@@ -116,7 +116,7 @@ export function postBargainHelpList(params,data) {
  * 
 */
 export function getSeckillIndexTime(){
-  return request.get('seckill/index',{},{noAuth:true});
+  return request.get('restful/seckill/index',{},{noAuth:true});
 }
 
 /**
@@ -125,7 +125,7 @@ export function getSeckillIndexTime(){
  * @param object data
 */
 export function getSeckillList(time,data){
-  return request.get('seckill/list/'+time,data,{noAuth:true});
+  return request.get('restful/seckill/list/'+time,data,{noAuth:true});
 }
 
 /**
@@ -180,14 +180,14 @@ export function scombinationCode(id) {
  * @param int id
 */
 export function getSeckillHeaderApi(){
-  return request.get('seckill/header',{},{noAuth:true});
+  return request.get('restful/seckill/header',{},{noAuth:true});
 }
 
 /**
  * 首页秒杀产品列表
 */
 export function getSeckillIndexApi(){
-  return request.get('seckill/index',{},{noAuth:true});
+  return request.get('restful/seckill/index',{},{noAuth:true});
 }
 
 
@@ -195,14 +195,14 @@ export function getSeckillIndexApi(){
  * 首页拼团产品列表
 */
 export function getCombinationIndexApi(){
-  return request.get('combination/index',{},{noAuth:true});
+  return request.get('restful/combination/index',{},{noAuth:true});
 }
 
 /**
  * 首页砍价产品列表
 */
 export function getBargainIndexApi(){
-  return request.get('bargain/index',{},{noAuth:true});
+  return request.get('restful/bargain/index',{},{noAuth:true});
 }
 
 /**

@@ -9,7 +9,7 @@ import {
  * @returns {*}
  */
 export function getWechatConfig() {
-  return request.get("wechat/config",{ url: encodeURIComponent(wechat.signLink()) },{ noAuth: true });
+  return request.get("restful/wechat/config",{ url: encodeURIComponent(wechat.signLink()) },{ noAuth: true });
 }
 
 /**
@@ -20,7 +20,7 @@ export function wechatAuth(code, spread) {
 	var reg=/^[0-9]+.?[0-9]*$/; //判断字符串是否为数字 ，判断正整数用/^[1-9]+[0-9]*]*$/
 	spread = reg.test(spread) ? spread : 0;
   return request.get(
-    "wechat/authorize/login?code=" + code + "&spread_spid=" + spread, {},
+    "restful/wechat/authorize/login?code=" + code + "&spread_spid=" + spread, {},
     { noAuth: true }
   );
 }
@@ -32,7 +32,7 @@ export function wechatAuth(code, spread) {
 export function getLogo()
 {
 	// wechat/get_logo
-  return request.get('wechat/getLogo', {}, { noAuth : true});
+  return request.get('restful/wechat/getLogo', {}, { noAuth : true});
 }
 
 /**
@@ -40,14 +40,14 @@ export function getLogo()
  * @param data object 小程序用户登录信息
  */
 export function login(code,data) {
-  return request.post("wechat/authorize/program/login?code="+code, data, { noAuth : true });
+  return request.post("restful/wechat/authorize/program/login?code="+code, data, { noAuth : true });
 }
 /**
  * 分享
  * @returns {*}
  */
 export function getShare() {
-  return request.get("share", {}, { noAuth: true });
+  return request.get("restful/share", {}, { noAuth: true });
 }
 
 /**
@@ -55,7 +55,7 @@ export function getShare() {
  * @returns {*}
  */
 export function follow() {
-  return request.get("wechat/follow", {}, { noAuth: true });
+  return request.get("restful/wechat/follow", {}, { noAuth: true });
 }
 
 /**
@@ -63,7 +63,7 @@ export function follow() {
  * @retins {*}
  * */
 export function imageBase64(image) {
-  return request.post("qrcode/base64",image,{ noAuth: true },1);
+  return request.post("restful/qrcode/base64",image,{ noAuth: true },1);
 }
 
 /**
@@ -71,7 +71,7 @@ export function imageBase64(image) {
  * @returns {*}
  */
 export function copyWords() {
-  return request.get("copy_words", {}, { noAuth: true });
+  return request.get("restful/copy_words", {}, { noAuth: true });
 }
 
 /**
@@ -79,7 +79,7 @@ export function copyWords() {
  * @returns {*}
  */
 export function kefuConfig() {
-  return request.get("config", {}, { noAuth: true });
+  return request.get("restful/config", {}, { noAuth: true });
 }
 
 /**
@@ -87,7 +87,7 @@ export function kefuConfig() {
  * @param {Object} data
  */
 export function getUserPhone(data){
-	return request.post('wechat/register/binding/phone',data,{noAuth : true});
+	return request.post('restful/wechat/register/binding/phone',data,{noAuth : true});
 }
 
 /**
@@ -95,7 +95,7 @@ export function getUserPhone(data){
  * @param {Object} data
  */
 export function appAuth(data) {
-	return request.post("wechat/authorize/app/login", data, { noAuth : true });
+	return request.post("restful/wechat/authorize/app/login", data, { noAuth : true });
 }
 
 /**
@@ -103,7 +103,7 @@ export function appAuth(data) {
  * @param {Object} data
  */
 export function appleLogin(data) {
-	return request.post("ios/login", data, { noAuth : true });
+	return request.post("restful/ios/login", data, { noAuth : true });
 }
 
 
@@ -112,5 +112,5 @@ export function appleLogin(data) {
  * @param {Object} data
  */
 export function iosBinding(data) {
-	return request.post("ios/binding/phone", data, { noAuth : true });
+	return request.post("restful/ios/binding/phone", data, { noAuth : true });
 }

@@ -5,36 +5,14 @@
         <div class="container">
           <el-form inline size="small">
             <el-form-item label="文章分类：">
-              <el-select
-                v-model="listPram.cid"
-                clearable
-                class="selWidth"
-                placeholder="请选择文章分类"
-                @change="handerSearch"
-              >
-                <el-option
-                  v-for="item in categoryTreeData"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id"
-                >
+              <el-select v-model="listPram.cid" clearable class="selWidth" placeholder="请选择文章分类" @change="handerSearch">
+                <el-option v-for="item in categoryTreeData" :key="item.id" :label="item.name" :value="item.id">
                 </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="关键词：">
-              <el-input
-                v-model="listPram.keywords"
-                placeholder="请输入关键词"
-                class="selWidth"
-                size="small"
-                clearable
-              >
-                <el-button
-                  slot="append"
-                  icon="el-icon-search"
-                  @click="handerSearch"
-                  size="small"
-                />
+              <el-input v-model="listPram.keywords" placeholder="请输入关键词" class="selWidth" size="small" clearable>
+                <el-button slot="append" icon="el-icon-search" @click="handerSearch" size="small" />
               </el-input>
             </el-form-item>
           </el-form>
@@ -43,22 +21,14 @@
           <el-button size="small" type="primary" class="mr10" v-hasPermi="['admin:article:save']">添加文章</el-button>
         </router-link>
       </div>
-      <el-table
-        v-loading="listLoading"
-        :data="listData.list"
-        size="mini"
-        class="table"
-        highlight-current-row
-        :header-cell-style=" {fontWeight:'bold'}">
-        <el-table-column prop="id" label="ID" min-width="50" />
+      <el-table v-loading="listLoading" :data="listData.list" size="mini" class="table" highlight-current-row
+        :header-cell-style="{ fontWeight: 'bold' }">
+        <!-- <el-table-column prop="id" label="ID" min-width="50" /> -->
         <el-table-column label="图片" min-width="80">
           <template slot-scope="scope">
             <div class="demo-image__preview">
-              <el-image
-                style="width: 36px; height: 36px"
-                :src="scope.row.imageInput"
-                :preview-src-list="[scope.row.imageInput]"
-              />
+              <el-image style="width: 36px; height: 36px" :src="scope.row.imageInput"
+                :preview-src-list="[scope.row.imageInput]" />
             </div>
           </template>
         </el-table-column>
@@ -74,60 +44,25 @@
           </template>
         </el-table-column>
         <el-table-column prop="author" label="作者" min-width="180" />
-        <el-table-column
-          prop="synopsis"
-          label="文章简介"
-          show-overflow-tooltip
-          min-width="250"
-        />
+        <el-table-column prop="synopsis" label="文章简介" show-overflow-tooltip min-width="250" />
         <el-table-column prop="updateTime" label="更新时间" min-width="180" />
-        <el-table-column
-          label="操作"
-          min-width="100"
-          fixed="right"
-          align="center"
-        >
+        <el-table-column label="操作" min-width="100" fixed="right" align="center">
           <template slot-scope="scope">
-            <router-link
-              :to="{ path: '/content/articleCreat/' + scope.row.id }"
-            >
+            <router-link :to="{ path: '/content/articleCreat/' + scope.row.id }">
               <el-button size="small" type="text" class="mr10" v-hasPermi="['admin:article:info']">编辑</el-button>
             </router-link>
-            <el-button
-              type="text"
-              size="small"
-              @click="handlerDelete(scope.row)"
-              v-hasPermi="['admin:article:delete']"
-              >删除</el-button
-            >
+            <el-button type="text" size="small" @click="handlerDelete(scope.row)"
+              v-hasPermi="['admin:article:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination
-        :current-page="listPram.page"
-        :page-sizes="constants.page.limit"
-        :layout="constants.page.layout"
-        :total="listData.total"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      />
+      <el-pagination :current-page="listPram.page" :page-sizes="constants.page.limit" :layout="constants.page.layout"
+        :total="listData.total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
     </el-card>
-    <el-dialog
-      :visible.sync="editDialogConfig.visible"
-      :title="editDialogConfig.isEdit === 0 ? '创建文章' : '编辑文章'"
-      top="1vh"
-      width="900px"
-      destroy-on-close
-      :modal="false"
-      :close-on-click-modal="false"
-      class="articleModal"
-    >
-      <edit
-        v-if="editDialogConfig.visible"
-        :is-edit="editDialogConfig.isEdit"
-        :edit-data="editDialogConfig.editData"
-        @hideDialog="handlerHideDialog"
-      />
+    <el-dialog :visible.sync="editDialogConfig.visible" :title="editDialogConfig.isEdit === 0 ? '创建文章' : '编辑文章'" top="1vh"
+      width="900px" destroy-on-close :modal="false" :close-on-click-modal="false" class="articleModal">
+      <edit v-if="editDialogConfig.visible" :is-edit="editDialogConfig.isEdit" :edit-data="editDialogConfig.editData"
+        @hideDialog="handlerHideDialog" />
     </el-dialog>
   </div>
 </template>
