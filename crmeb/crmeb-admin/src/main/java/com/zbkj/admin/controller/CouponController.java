@@ -32,7 +32,7 @@ import java.util.List;
  */
 @Slf4j
 @RestController("CouponFrontController")
-@RequestMapping("api/front")
+@RequestMapping("api/front/restful")
 @Api(tags = "优惠券")
 public class CouponController {
 

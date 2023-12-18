@@ -34,9 +34,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String contextPath = request.getRequestURI();
 
-        if(!contextPath.startsWith("/api/front/")){
+
             LoginUserVo loginUser = tokenComponent.getLoginUser(request);
             if (ObjectUtil.isNotNull(loginUser)) {
                 tokenComponent.verifyToken(loginUser);
@@ -45,10 +44,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 // 将authentication信息放入到上下文对象中
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
-            }
-            filterChain.doFilter(request, response);
+
         }
 
-
+        filterChain.doFilter(request, response);
         }
 }

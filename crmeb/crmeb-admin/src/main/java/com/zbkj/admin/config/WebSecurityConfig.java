@@ -122,6 +122,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/codegen/code").permitAll()
                 .antMatchers("/api/public/**").anonymous()
                 .antMatchers("/api/front/**").anonymous()
+                .antMatchers("/api/front/restful/**").anonymous()
             .antMatchers(
                     HttpMethod.GET,
                     "/*.html",

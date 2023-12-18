@@ -34,7 +34,7 @@ import java.util.List;
  */
 @Slf4j
 @RestController("ProductController")
-@RequestMapping("api/front")
+@RequestMapping("api/front/restful")
 @Api(tags = "商品")
 public class ProductController {
 

@@ -522,20 +522,20 @@ public class UserCenterServiceImpl extends ServiceImpl<UserDao, User> implements
             }
             // 记录最后一次登录时间
             user.setLastLoginTime(DateUtil.nowDateTime());
-            Boolean execute = transactionTemplate.execute(e -> {
-                // 分销绑定
-                if (userService.checkBingSpread(user, request.getSpreadPid(), "old")) {
-                    user.setSpreadUid(request.getSpreadPid());
-                    user.setSpreadTime(DateUtil.nowDateTime());
-                    // 处理新旧推广人数据
-                    userService.updateSpreadCountByUid(request.getSpreadPid(), "add");
-                }
-                userService.updateById(user);
-                return Boolean.TRUE;
-            });
-            if (!execute) {
-                logger.error(StrUtil.format("小程序登录绑定分销关系失败，uid={},spreadUid={}", user.getUid(), request.getSpreadPid()));
-            }
+//            Boolean execute = transactionTemplate.execute(e -> {
+//                // 分销绑定
+//                if (userService.checkBingSpread(user, request.getSpreadPid(), "old")) {
+//                    user.setSpreadUid(request.getSpreadPid());
+//                    user.setSpreadTime(DateUtil.nowDateTime());
+//                    // 处理新旧推广人数据
+//                    userService.updateSpreadCountByUid(request.getSpreadPid(), "add");
+//                }
+//                userService.updateById(user);
+//                return Boolean.TRUE;
+//            });
+//            if (!execute) {
+//                logger.error(StrUtil.format("小程序登录绑定分销关系失败，uid={},spreadUid={}", user.getUid(), request.getSpreadPid()));
+//            }
 
             try {
                 String token = tokenComponent.createToken(user);
