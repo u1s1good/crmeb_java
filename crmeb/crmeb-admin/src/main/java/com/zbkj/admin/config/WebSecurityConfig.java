@@ -121,23 +121,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 代码生成器
                 .antMatchers("/api/codegen/code").permitAll()
                 .antMatchers("/api/public/**").anonymous()
-                .antMatchers("/api/front/product/detail").anonymous()
-                .antMatchers("/api/front/coupons").anonymous()
-                .antMatchers("/api/front/index").permitAll()
-                .antMatchers("/api/front/bargain/list").permitAll()
-                .antMatchers( "/api/front/combination/list").permitAll()
-                .antMatchers("/api/front/index/product").permitAll()
-                .antMatchers("/api/front/combination/index").permitAll()
-                .antMatchers("/api/front/bargain/index").permitAll()
-                .antMatchers("/api/front/index/color/config").permitAll()
-                .antMatchers("/api/front/product/list").permitAll()
-                .antMatchers("/api/front/product/sku/detail").permitAll()
-                .antMatchers("/api/front/index/get/version").permitAll()
-                .antMatchers("/api/front/image/domain").permitAll()
-                .antMatchers("/api/front/wechat/**").permitAll()
-//                .antMatchers("/api/front/secill/index").permitAll()
-//                .antMatchers("/api/front/combination/indexd").permitAll()
-//            .antMatchers("/wx/user/*/login","/citylife/nocheck/**").anonymous()
+                .antMatchers("/api/front/**").anonymous()
             .antMatchers(
                     HttpMethod.GET,
                     "/*.html",

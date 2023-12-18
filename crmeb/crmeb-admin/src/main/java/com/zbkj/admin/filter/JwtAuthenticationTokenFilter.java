@@ -34,17 +34,21 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        LoginUserVo loginUser = tokenComponent.getLoginUser(request);
-//        if (ObjectUtil.isNotNull(loginUser) && StringUtils.isNull(SecurityUtils.getAuthentication())) {
-        if (ObjectUtil.isNotNull(loginUser)) {
-            tokenComponent.verifyToken(loginUser);
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
-            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            // 将authentication信息放入到上下文对象中
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        String contextPath = request.getRequestURI();
+
+        if(!contextPath.startsWith("/api/front/")){
+            LoginUserVo loginUser = tokenComponent.getLoginUser(request);
+            if (ObjectUtil.isNotNull(loginUser)) {
+                tokenComponent.verifyToken(loginUser);
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
+                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                // 将authentication信息放入到上下文对象中
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+            }
+            filterChain.doFilter(request, response);
         }
 
 
-        filterChain.doFilter(request, response);
         }
 }
