@@ -18,7 +18,6 @@ function baseRequest(url, method, data, {
 	noAuth = false,
 	noVerify = false
 }, params) {
-	console.log(111,store.state.app.token)
 	let Url = HTTP_REQUEST_URL,header = HEADER
 	if (params != undefined) {
 		header = HEADERPARAMS;
