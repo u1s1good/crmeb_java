@@ -54,10 +54,9 @@
 						</view>
 					</view>
 					
-					<view class='item acea-row row-between-wrapper'
+					<!-- <view class='item acea-row row-between-wrapper'
 						v-if="!orderInfoVo.bargainId && !orderInfoVo.combinationId && !orderInfoVo.seckillId && productType==='normal'">
 						<view>积分抵扣</view>
-					<!-- 	 -->
 						<view class='discount acea-row row-middle'>
 							<view> {{useIntegral ? "剩余积分":"当前积分"}}
 								<text class='num font-color'>{{useIntegral ? orderInfoVo.surplusIntegral : orderInfoVo.userIntegral || 0}}</text>
@@ -66,7 +65,7 @@
 								<checkbox :checked='useIntegral ? true : false' :disabled="orderInfoVo.userIntegral==0 && !useIntegral"/>
 							</checkbox-group>
 						</view>
-					</view>
+					</view> -->
 					<!-- <view class='item acea-row row-between-wrapper'
 						v-if="priceGroup.vipPrice > 0 && userInfo.vip && !pinkId && !BargainId && !combinationId && !seckillId">
 						<view>会员优惠</view>

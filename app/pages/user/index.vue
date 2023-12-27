@@ -165,12 +165,12 @@
 						url: '/pages/users/order_list/index?status=2',
 						num: 0
 					},
-					{
-						img: '/static/images/order4.png',
-						title: '待评价',
-						url: '/pages/users/order_list/index?status=3',
-						num: 0
-					},
+					// {
+					// 	img: '/static/images/order4.png',
+					// 	title: '待评价',
+					// 	url: '/pages/users/order_list/index?status=3',
+					// 	num: 0
+					// },
 					{
 						img: '/static/images/order5.png',
 						title: '售后/退款',

@@ -4,9 +4,9 @@
 			<!-- 给header上与data上加on为退款订单-->
 			<view class='header bg-color' :class='isGoodsReturn ? "on":""'>
 				<view class='picTxt acea-row row-middle'>
-					<view class='pictrue' v-if="isGoodsReturn==false">
+					<!-- <view class='pictrue' v-if="isGoodsReturn==false">
 						<image :src="orderInfo.statusPic"></image>
-					</view>
+					</view> -->
 					<view class='data' :class='isGoodsReturn ? "on":""'>
 						<view class='state'>{{orderInfo.orderStatusMsg}}</view>
 						<view>{{orderInfo.createTime}}</view>
@@ -21,7 +21,7 @@
 						<view :class="orderInfo.paid && orderInfo.status == 0 ? 'on':''">
 							{{orderInfo.shippingType==1 ? '待发货':'待核销'}}</view>
 						<view :class="orderInfo.status == 1 ? 'on':''" v-if="orderInfo.shippingType == 1">待收货</view>
-						<view :class="orderInfo.status == 2 ? 'on':''">待评价</view>
+						<!-- <view :class="orderInfo.status == 2 ? 'on':''">待评价</view> -->
 						<view :class="orderInfo.status == 3 ? 'on':''">已完成</view>
 					</view>
 					<view class='progress acea-row row-between-wrapper'>
@@ -38,10 +38,10 @@
 							:class='(orderInfo.status == 1 ? "icon-webicon318":"icon-yuandianxiao") + " " +(orderInfo.status >= 1 ? "font-color":"")'
 							v-if="orderInfo.shippingType == 1"></view>
 						<view class='line' :class='orderInfo.status > 1 ? "bg-color":""'></view>
-						<view class='iconfont'
+						<!-- <view class='iconfont'
 							:class='(orderInfo.status == 2 ? "icon-webicon318":"icon-yuandianxiao") + " " + (orderInfo.status >= 2 ? "font-color":"")'>
 						</view>
-						<view class='line' :class='orderInfo.status > 2 ? "bg-color":""'></view>
+						<view class='line' :class='orderInfo.status > 2 ? "bg-color":""'></view> -->
 						<view class='iconfont'
 							:class='(orderInfo.status == 3 ? "icon-webicon318":"icon-yuandianxiao") + " " + (orderInfo.status >= 3 ? "font-color":"")'>
 						</view>
@@ -123,7 +123,7 @@
 						<view>订单编号：</view>
 						<view class='conter acea-row row-middle row-right'>{{orderInfo.orderId}}
 							<!-- #ifndef H5 -->
-							<text class='copy' @tap='copy'>复制</text>
+							<text class='copy' @tap='copy(orderInfo.orderId)'>复制</text>
 							<!-- #endif -->
 							<!-- #ifdef H5 -->
 							<text class='copy copy-data' :data-clipboard-text="orderInfo.orderId">复制</text>
@@ -175,7 +175,14 @@
 						</view>
 						<view class='item acea-row row-between'>
 							<view>快递号：</view>
-							<view class='conter'>{{orderInfo.deliveryId || ''}}</view>
+							<view class='conter'>{{orderInfo.deliveryId || ''}}
+							<!-- #ifndef H5 -->
+							<text class='copy' @tap='copy(orderInfo.deliveryId)'>复制</text>
+							<!-- #endif -->
+							<!-- #ifdef H5 -->
+							<text class='copy copy-data' :data-clipboard-text="orderInfo.deliveryId">复制</text>
+							<!-- #endif --></view>
+							
 						</view>
 					</view>
 					<view class='wrapper borRadius14' v-else-if='orderInfo.deliveryType=="send"'>
@@ -235,9 +242,9 @@
 					</navigator>
 					<!-- #endif -->
 					<view class='bnt bg-color' v-if="orderInfo.combinationId > 0" @tap='goJoinPink'>查看拼团</view>
-					<navigator class='bnt cancel' v-if="orderInfo.deliveryType == 'express' && orderInfo.status >0"
+					<!-- <navigator class='bnt cancel' v-if="orderInfo.deliveryType == 'express' && orderInfo.status >0"
 						hover-class='none' :url="'/pages/users/goods_logistics/index?orderId='+ orderInfo.orderId">查看物流
-					</navigator>
+					</navigator> -->
 					<view class='bnt bg-color' v-if="orderInfo.status==1" @tap='confirmOrder'>确认收货</view>
 					<view class='bnt cancel' v-if="orderInfo.status==3" @tap='delOrder'>删除订单</view>
 					<view class='bnt bg-color' v-if="orderInfo.status==3 && orderInfo.type!==1" @tap='goOrderConfirm'>再次购买</view>
@@ -884,7 +891,8 @@
 			 * 剪切订单号
 			 */
 			// #ifndef H5
-			copy: function() {
+			copy: function(data) {
+				console.log(data)
 				let that = this;
 				uni.setClipboardData({
 					data: this.orderInfo.orderId

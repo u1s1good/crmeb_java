@@ -36,7 +36,7 @@
           <div class="description-term">创建时间：{{orderDatalist.createTime}}</div>
           <div class="description-term" v-if="orderDatalist.refundReasonTime">退款时间：{{orderDatalist.refundReasonTime}}</div>
           <div class="description-term">支付方式：{{orderDatalist.payTypeStr}}</div>
-          <div class="description-term">推广人：{{orderDatalist.spreadName | filterEmpty}}</div>
+          <!-- <div class="description-term">推广人：{{orderDatalist.spreadName | filterEmpty}}</div> -->
           <div class="description-term" v-if="orderDatalist.shippingType === 2 && orderDatalist.statusStr.key === 'notShipped'">门店名称：{{orderDatalist.storeName}}</div>
           <div class="description-term" v-if="orderDatalist.shippingType === 2 && orderDatalist.statusStr.key === 'notShipped'">核销码：{{orderDatalist.user_phone}}</div>
           <div class="description-term">商家备注：{{orderDatalist.remark}}</div>
@@ -54,7 +54,7 @@
           <div class="acea-row">
             <div class="description-term">快递公司：{{orderDatalist.deliveryName}}</div>
             <div class="description-term">快递单号：{{orderDatalist.deliveryId}}
-              <el-button type="primary" size="mini" @click="openLogistics" style="margin-left: 5px" v-hasPermi="['admin:order:logistics:info']">物流查询</el-button>
+              <!-- <el-button type="primary" size="mini" @click="openLogistics" style="margin-left: 5px" v-hasPermi="['admin:order:logistics:info']">物流查询</el-button> -->
             </div>
           </div>
         </template>

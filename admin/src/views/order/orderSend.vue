@@ -9,12 +9,12 @@
         </el-radio-group>
       </el-form-item>
       <div v-if="formItem.type==='1'">
-        <el-form-item label="发货类型：" prop="expressId">
+        <!-- <el-form-item label="发货类型：" prop="expressId">
           <el-radio-group v-model="formItem.expressRecordType" @change="changeRadio(formItem.expressRecordType)">
             <el-radio label="1">手动填写</el-radio>
             <el-radio label="2" v-if="checkPermi(['admin:order:sheet:info'])">电子面单打印</el-radio>
           </el-radio-group>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="快递公司：" prop="expressCode">
           <el-select v-model="formItem.expressCode" filterable style="width:80%;"
                      @change="onChangeExport(formItem.expressCode)">

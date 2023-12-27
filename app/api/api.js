@@ -211,7 +211,7 @@ export function pink()
  * 获取城市信息
  */
 export function getCity() {
-  return request.get('restful/city/list', { }, { noAuth: true });
+  return request.get('city/list', { }, { noAuth: true });
 }
 
 /**

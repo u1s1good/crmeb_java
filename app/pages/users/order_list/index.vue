@@ -25,10 +25,10 @@
 					<view>待收货</view>
 					<view class='num '>{{orderData.receivedCount || 0}}</view>
 				</view>
-				<view class='item' :class='orderStatus==3 ? "on": ""' @click="statusClick(3)">
+				<!-- <view class='item' :class='orderStatus==3 ? "on": ""' @click="statusClick(3)">
 					<view>待评价</view>
 					<view class='num'>{{orderData.evaluatedCount || 0}}</view>
-				</view>
+				</view> -->
 				<view class='item' :class='orderStatus==4 ? "on": ""' @click="statusClick(4)">
 					<view>已完成</view>
 					<view class='num'>{{orderData.completeCount || 0}}</view>
@@ -73,7 +73,7 @@
 						<view class='bnt cancelBnt' v-if="!item.paid" @click='cancelOrder(index,item.id)'>取消订单</view>
 						<view class='bnt bg-color' v-if="!item.paid" @click='goPay(item.payPrice,item.orderId)'>立即付款</view>
 						<view class='bnt bg-color' v-else-if="item.status== 0 || item.status== 1 || item.status== 3" @click='goOrderDetails(item.orderId)'>查看详情</view>
-						<view class='bnt bg-color' v-else-if="item.status==2" @click='goOrderDetails(item.orderId)'>去评价</view>
+						<!-- <view class='bnt bg-color' v-else-if="item.status==2" @click='goOrderDetails(item.orderId)'>去评价</view> -->
 						<view class='bnt cancelBnt' v-if="item.status == 3" @click='delOrder(item.id,index)'>删除订单</view>
 					</view>
 					<!-- <view class='bottom acea-row row-right row-middle'>
@@ -155,13 +155,13 @@
 						value: 'weixin',
 						title: '微信快捷支付'
 					},
-					{
-						name: "余额支付",
-						icon: "icon-yuezhifu",
-						value: 'yue',
-						title: '可用余额:',
-						number: 0
-					}
+					// {
+					// 	name: "余额支付",
+					// 	icon: "icon-yuezhifu",
+					// 	value: 'yue',
+					// 	title: '可用余额:',
+					// 	number: 0
+					// }
 				],
 				pay_close: false,
 				pay_order_id: '',
@@ -178,8 +178,8 @@
 				this.$set(this, 'orderList', []);
 				this.getOrderData();
 				this.getOrderList();
-				this.payMode[1].number = this.userInfo.nowMoney;
-				this.$set(this, 'payMode', this.payMode);
+				// this.payMode[1].number = this.userInfo.nowMoney;
+				// this.$set(this, 'payMode', this.payMode);
 			} else {
 				toLogin();
 			}

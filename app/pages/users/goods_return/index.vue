@@ -21,7 +21,7 @@
 		          <view>退款金额</view>
 		          <view class='num'>￥{{orderInfo.payPrice}}</view>
 		        </view>
-		        <view class='item acea-row row-between-wrapper' @tap="toggleTab('region')">
+		        <view class='item acea-row row-between-wrapper'>
 		          <view>退款原因</view>
 		          <picker class='num' @change="bindPickerChange" :value="index" :range="RefundArray">
 		              <view class="picker acea-row row-between-wrapper">

@@ -90,7 +90,7 @@
 							</view>
 							<view class='iconfont icon-jiantou'></view>
 						</view>
-						<view class='userEvaluation' id="past1">
+<!-- 						<view class='userEvaluation' id="past1">
 							<view class='title acea-row row-between-wrapper'
 								:style="replyCount==0?'border-bottom-left-radius:14rpx;border-bottom-right-radius:14rpx;':''">
 								<view>用户评价<i>({{replyCount}})</i></view>
@@ -103,9 +103,9 @@
 							<block v-if="replyCount">
 								<userEvaluation :reply="reply"></userEvaluation>
 							</block>
-						</view>
+						</view> -->
 						<!-- 优品推荐 -->
-						<view class="superior borRadius14" if='good_list.length' id="past2">
+						<view class="superior borRadius14" if='good_list.length' id="past1">
 							<view class="title acea-row row-center-wrapper">
 								<image src="../../static/images/xzuo.png"></image>
 								<view class="titleTxt">优品推荐</view>
@@ -139,7 +139,7 @@
 						</view>
 					</view>
 				</view>
-				<view class='product-intro' id="past3">
+				<view class='product-intro' id="past2">
 					<view class='title'>
 						<image src="../../static/images/xzuo.png"></image>
 						<span class="sp">产品详情</span>
@@ -223,10 +223,10 @@
 				<view class="">发送给朋友</view>
 			</button>
 			<!-- #endif -->
-			<button class="item" hover-class='none' @click="goPoster">
+			<!-- <button class="item" hover-class='none' @click="goPoster">
 				<view class="iconfont icon-haibao"></view>
 				<view class="">生成海报</view>
-			</button>
+			</button> -->
 		</view>
 		<view class="mask" v-if="posters" @click="closePosters"></view>
 		<view class="mask" v-if="canvasStatus"></view>
@@ -737,9 +737,10 @@
 						});
 					}
 					this.$set(this, 'good_list', goodArray);
-					let navList = ['商品', '评价', '详情'];
+					// let navList = ['商品', '评价', '详情'];
+					let navList = ['商品', '详情'];
 					if (goodArray.length) {
-						navList.splice(2, 0, '推荐')
+						navList.splice(1, 0, '推荐')
 					}
 					this.$set(this, 'navList', navList);
 					this.$nextTick(() => {

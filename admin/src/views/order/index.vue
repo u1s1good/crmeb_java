@@ -184,7 +184,7 @@
                 <!--v-show="((scope.row.statusStr.key !== 'refunded' && scope.row.statusStr.key !== 'unPaid') && (parseFloat(scope.row.payPrice) >= parseFloat(scope.row.refundPrice))) || (scope.row.payPrice == 0 && [0,1].indexOf(scope.row.refundStatus) !== -1)"-->
                 <el-dropdown-item v-if="scope.row.refundStatus === 1 && checkPermi(['admin:order:refund'])" @click.native="onOrderRefund(scope.row)" >立即退款</el-dropdown-item>
                 <el-dropdown-item v-if="scope.row.statusStr.key === 'deleted' && checkPermi(['admin:order:delete'])" @click.native="handleDelete(scope.row, scope.$index)">删除订单</el-dropdown-item>
-                <el-dropdown-item v-if="scope.row.statusStr.key !== 'unPaid'" @click.native="onOrderPrint(scope.row)" >打印小票</el-dropdown-item>
+                <!--<el-dropdown-item v-if="scope.row.statusStr.key !== 'unPaid'" @click.native="onOrderPrint(scope.row)" >打印小票</el-dropdown-item>-->
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -230,12 +230,12 @@
         :data="tableDataLog.data"
         style="width: 100%"
       >
-        <el-table-column
+      <!--<el-table-column
           prop="oid"
           align="center"
           label="ID"
           min-width="80"
-        />
+        />-->
         <el-table-column
           prop="changeMessage"
           label="操作记录"

@@ -1,8 +1,8 @@
 <template>
   <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="用户编号：">
+      <!-- <el-form-item label="用户编号：">
         <el-input v-model="ruleForm.id" disabled class="selWidth"></el-input>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="用户地址：">
         <el-input v-model="ruleForm.addres" class="selWidth"></el-input>
       </el-form-item>
@@ -66,8 +66,8 @@
     mounted() {
       if(this.uid) this.userInfo()
       this.groupLists()
-      this.levelLists()
-      this.getTagList()
+      // this.levelLists()
+      // this.getTagList()
     },
     methods: {
       // 详情

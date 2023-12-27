@@ -183,7 +183,7 @@ export function orderConfirm(cartId, isNew, addAgain,secKill,combination,bargain
  * 
  */
 export function getCouponsOrderPrice(preOrderNo) {
-	return request.get(`coupons/order/${preOrderNo}`)
+	return request.get(`restful/coupons/order/${preOrderNo}`)
 }
 
 /**
