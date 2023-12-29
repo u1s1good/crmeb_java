@@ -52,23 +52,16 @@ public class ProductUtils {
 
     String rightUrl;
 
-    @Autowired
-    private StoreProductCouponService storeProductCouponService;
+//    @Autowired
+//    private StoreProductCouponService storeProductCouponService;
 
     @Autowired
     private SystemConfigService systemConfigService;
 
-    @Autowired
-    private StoreSeckillService storeSeckillService;
 
-    @Autowired
-    private StoreSeckillMangerService storeSeckillMangerService;
 
-    @Autowired
-    private StoreBargainService storeBargainService;
-
-    @Autowired
-    private StoreCombinationService storeCombinationService;
+//    @Autowired
+//    private StoreCombinationService storeCombinationService;
 
     /**
      * 解析淘宝产品数据
@@ -414,93 +407,40 @@ public class ProductUtils {
         }
     }
 
-    /**
-     * 根据商品参加的活动次序查找对应活动明细
-     * @param productId 商品id
-     * @param activity 活动次序
-     * @return 活动结果
-     */
-    public HashMap<Integer,ProductActivityItemResponse> getActivityByProduct(Integer productId, String activity){
-        HashMap<Integer,ProductActivityItemResponse> result = null;
-        // 根据参与活动配置次序查找对应活动信息
-        if(StringUtils.isBlank(activity)){
-            return result;
-        }
-        result = new HashMap<>();
 
-        List<Integer> activitys = CrmebUtil.stringToArrayInt(activity);
-        for (Integer code : activitys) {
-            if(code == 1){ // 查找秒杀信息
-                List<StoreSeckill> currentSecKills = storeSeckillService.getCurrentSecKillByProductId(productId);
-                if(null != currentSecKills && currentSecKills.size() > 0){
-                    // 查询当前秒杀活动时间段配置信息
-                    StoreSeckillManger secKillManager = storeSeckillMangerService.getById(currentSecKills.get(0).getTimeId());
-                    // 将当前时间段转化成时间戳
-                    int secKillEndSecondTimestamp =
-                            DateUtil.getSecondTimestamp(DateUtil.nowDateTime("yyyy-MM-dd " + secKillManager.getEndTime() + ":00:00"));
-                    ProductActivityItemResponse secKillResponse = new ProductActivityItemResponse();
-                    secKillResponse.setId(currentSecKills.get(0).getId());
-                    secKillResponse.setTime(secKillEndSecondTimestamp);
-                    secKillResponse.setType(Constants.PRODUCT_TYPE_SECKILL+"");
-                    result.put(code,secKillResponse);
-                }
-            }
-            if(code == 2){ // 查找砍价信息
-                List<StoreBargain> currentBargains = storeBargainService.getCurrentBargainByProductId(productId);
-                if (CollUtil.isNotEmpty(currentBargains)) {
-                    ProductActivityItemResponse bargainResponse = new ProductActivityItemResponse();
-                    bargainResponse.setId(currentBargains.get(0).getId());
-                    bargainResponse.setTime(DateUtil.getSecondTimestamp(currentBargains.get(0).getStopTime()));
-                    bargainResponse.setType(Constants.PRODUCT_TYPE_BARGAIN +"");
-                    result.put(code, bargainResponse);
-                }
-            }
-            if(code == 3){ // 查找拼团信息
-                List<StoreCombination> currentCombinations = storeCombinationService.getCurrentBargainByProductId(productId);
-                if (CollUtil.isNotEmpty(currentCombinations)) {
-                    ProductActivityItemResponse bargainResponse = new ProductActivityItemResponse();
-                    bargainResponse.setId(currentCombinations.get(0).getId());
-                    bargainResponse.setTime(DateUtil.getSecondTimestamp(currentCombinations.get(0).getStopTime()));
-                    bargainResponse.setType(Constants.PRODUCT_TYPE_PINGTUAN +"");
-                    result.put(code, bargainResponse);
-                }
-            }
-        }
-        return result;
-    }
 
-    /**
-     * 获取商品参与的全部活动
-     * @param storeProduct  当前商品
-     * @return  商品所参与的活动
-     */
-    public List<ProductActivityItemResponse> getProductAllActivity(StoreProduct storeProduct) {
-        HashMap<Integer, ProductActivityItemResponse> currentActivityList
-                = getActivityByProduct(storeProduct.getId(), storeProduct.getActivity());
-        if(StringUtils.isBlank(storeProduct.getActivity())) return new ArrayList<>();
-        List<ProductActivityItemResponse> activityH5 = new ArrayList<>();
-        List<Integer> activityList = CrmebUtil.stringToArrayInt(storeProduct.getActivity());
-        for (Integer code : activityList) {
-            if(null != currentActivityList.get(code)){
-                activityH5.add(currentActivityList.get(code));
-            }
-        }
-        return activityH5;
-    }
+//    /**
+//     * 获取商品参与的全部活动
+//     * @param storeProduct  当前商品
+//     * @return  商品所参与的活动
+//     */
+//    public List<ProductActivityItemResponse> getProductAllActivity(StoreProduct storeProduct) {
+//        HashMap<Integer, ProductActivityItemResponse> currentActivityList
+//                = getActivityByProduct(storeProduct.getId(), storeProduct.getActivity());
+//        if(StringUtils.isBlank(storeProduct.getActivity())) return new ArrayList<>();
+//        List<ProductActivityItemResponse> activityH5 = new ArrayList<>();
+//        List<Integer> activityList = CrmebUtil.stringToArrayInt(storeProduct.getActivity());
+//        for (Integer code : activityList) {
+//            if(null != currentActivityList.get(code)){
+//                activityH5.add(currentActivityList.get(code));
+//            }
+//        }
+//        return activityH5;
+//    }
 
-    /**
-     * 获取当前商品参与的第一个活动
-     * @param storeProduct  当前商品信息
-     * @return 当前参与的商品活动
-     */
-    public ProductActivityItemResponse getProductCurrentActivity(StoreProduct storeProduct) {
-        HashMap<Integer, ProductActivityItemResponse> currentActivityList
-                = getActivityByProduct(storeProduct.getId(), storeProduct.getActivity());
-        if(StringUtils.isBlank(storeProduct.getActivity())) return null;
-        List<Integer> activityList = CrmebUtil.stringToArrayInt(storeProduct.getActivity());
-
-        return currentActivityList.get(activityList.get(0));
-    }
+//    /**
+//     * 获取当前商品参与的第一个活动
+//     * @param storeProduct  当前商品信息
+//     * @return 当前参与的商品活动
+//     */
+//    public ProductActivityItemResponse getProductCurrentActivity(StoreProduct storeProduct) {
+//        HashMap<Integer, ProductActivityItemResponse> currentActivityList
+//                = getActivityByProduct(storeProduct.getId(), storeProduct.getActivity());
+//        if(StringUtils.isBlank(storeProduct.getActivity())) return null;
+//        List<Integer> activityList = CrmebUtil.stringToArrayInt(storeProduct.getActivity());
+//
+//        return currentActivityList.get(activityList.get(0));
+//    }
 
     /**
      * 一号通复制商品转公共商品参数

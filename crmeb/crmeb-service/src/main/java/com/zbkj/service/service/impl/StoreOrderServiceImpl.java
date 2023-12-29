@@ -100,8 +100,7 @@ public class StoreOrderServiceImpl extends ServiceImpl<StoreOrderDao, StoreOrder
     @Autowired
     private RedisUtil redisUtil;
 
-    @Autowired
-    private StorePinkService storePinkService;
+
 
     @Autowired
     private SystemConfigService systemConfigService;
@@ -310,32 +309,6 @@ public class StoreOrderServiceImpl extends ServiceImpl<StoreOrderDao, StoreOrder
         if (StrUtil.isNotBlank(storeOrder.getVerifyCode())) {
             orderType = StrUtil.format(orderTypeFormat, "核销", "");
         }
-        // 秒杀
-        if (ObjectUtil.isNotNull(storeOrder.getSeckillId()) && storeOrder.getSeckillId() > 0) {
-            orderType = StrUtil.format(orderTypeFormat, "秒杀", "");
-        }
-        // 砍价
-        if (ObjectUtil.isNotNull(storeOrder.getBargainId()) && storeOrder.getBargainId() > 0) {
-            orderType = StrUtil.format(orderTypeFormat, "砍价", "");
-        }
-        // 拼团
-        if (ObjectUtil.isNotNull(storeOrder.getCombinationId()) && storeOrder.getCombinationId() > 0) {
-            StorePink storePink = storePinkService.getById(storeOrder.getPinkId());
-            if (ObjectUtil.isNotNull(storePink)) {
-                String pinkstatus = "";
-                if (storePink.getStatus() == 2) {
-                    pinkstatus = "已完成";
-                } else if (storePink.getStatus() == 3) {
-                    pinkstatus = "未完成";
-                } else {
-                    pinkstatus = "正在进行中";
-                }
-                orderType = StrUtil.format(orderTypeFormat, "拼团", pinkstatus);
-            }
-        }
-        if (storeOrder.getType().equals(1)) {// 视频订单
-            orderType = StrUtil.format(orderTypeFormat, "视频号", "");
-        }
         return orderType;
     }
 
@@ -423,29 +396,6 @@ public class StoreOrderServiceImpl extends ServiceImpl<StoreOrderDao, StoreOrder
             // 核销
             if (StrUtil.isNotBlank(storeOrder.getVerifyCode())) {
                 orderType = StrUtil.format(orderTypeFormat, "核销", "");
-            }
-            // 秒杀
-            if (ObjectUtil.isNotNull(storeOrder.getSeckillId()) && storeOrder.getSeckillId() > 0) {
-                orderType = StrUtil.format(orderTypeFormat, "秒杀", "");
-            }
-            // 砍价
-            if (ObjectUtil.isNotNull(storeOrder.getBargainId()) && storeOrder.getBargainId() > 0) {
-                orderType = StrUtil.format(orderTypeFormat, "砍价", "");
-            }
-            // 拼团
-            if (ObjectUtil.isNotNull(storeOrder.getPinkId()) && storeOrder.getPinkId() > 0) {
-                StorePink storePink = storePinkService.getById(storeOrder.getPinkId());
-                if (ObjectUtil.isNotNull(storePink)) {
-                    String pinkstatus = "";
-                    if (storePink.getStatus() == 2) {
-                        pinkstatus = "已完成";
-                    } else if (storePink.getStatus() == 3) {
-                        pinkstatus = "未完成";
-                    } else {
-                        pinkstatus = "正在进行中";
-                    }
-                    orderType = StrUtil.format(orderTypeFormat, "拼团", pinkstatus);
-                }
             }
             if (StrUtil.isBlank(orderType)) {
                 orderType = StrUtil.format(orderTypeFormat, "普通", "");
@@ -667,23 +617,13 @@ public class StoreOrderServiceImpl extends ServiceImpl<StoreOrderDao, StoreOrder
         storeOrder.setRefundReason(reason);
         storeOrder.setRefundStatus(0);
 
-        User user = userService.getById(storeOrder.getUid());
 
         Boolean execute = transactionTemplate.execute(e -> {
             updateById(storeOrder);
             storeOrderStatusService.createLog(storeOrder.getId(), Constants.ORDER_LOG_REFUND_REFUSE, Constants.ORDER_LOG_MESSAGE_REFUND_REFUSE.replace("{reason}", reason));
             return Boolean.TRUE;
         });
-        if (execute) {
-            // 如果是拼团订单要将拼团状态改回去
-            if (ObjectUtil.isNotNull(storeOrder) && storeOrder.getPinkId() > 0) {
-                StorePink storePink = storePinkService.getById(storeOrder.getPinkId());
-                if (storePink.getStatus().equals(3)) {
-                    storePink.setStatus(1);
-                    storePinkService.updateById(storePink);
-                }
-            }
-        }
+
         return execute;
     }
 

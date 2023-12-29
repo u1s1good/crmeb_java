@@ -49,15 +49,15 @@ public class ExcelServiceImpl implements ExcelService {
 
     @Autowired
     private CategoryService categoryService;
-
-    @Autowired
-    private StoreBargainService storeBargainService;
+//
+//    @Autowired
+//    private StoreBargainService storeBargainService;
 
     @Autowired
     private SystemConfigService systemConfigService;
-
-    @Autowired
-    private StoreCombinationService storeCombinationService;
+//
+//    @Autowired
+//    private StoreCombinationService storeCombinationService;
 
     @Autowired
     private StoreOrderService storeOrderService;
@@ -70,91 +70,91 @@ public class ExcelServiceImpl implements ExcelService {
      * @param request 请求参数
      * @return 导出地址
      */
-    @Override
-    public String exportBargainProduct(StoreBargainSearchRequest request) {
-        PageParamRequest pageParamRequest = new PageParamRequest();
-        pageParamRequest.setPage(Constants.DEFAULT_PAGE);
-        pageParamRequest.setLimit(Constants.EXPORT_MAX_LIMIT);
-        PageInfo<StoreBargainResponse> page = storeBargainService.getList(request, pageParamRequest);
-        if (CollUtil.isEmpty(page.getList())) throw new CrmebException("没有可导出的数据!");
-        List<StoreBargainResponse> list = page.getList();
-        List<BargainProductExcelVo> voList = list.stream().map(temp -> {
-            BargainProductExcelVo vo = new BargainProductExcelVo();
-            BeanUtils.copyProperties(temp, vo);
-            vo.setPrice("￥".concat(temp.getPrice().toString()));
-            vo.setStatus(temp.getStatus() ? "开启" : "关闭");
-            vo.setStartTime(temp.getStartTime());
-            vo.setStopTime(temp.getStopTime());
-            vo.setAddTime(temp.getAddTime());
-            return vo;
-        }).collect(Collectors.toList());
-
-        // 上传设置
-        ExportUtil.setUpload(crmebConfig.getImagePath(), Constants.UPLOAD_MODEL_PATH_EXCEL, Constants.UPLOAD_TYPE_FILE);
-
-        // 文件名
-        String fileName = "砍价".concat(DateUtil.nowDateTime(Constants.DATE_TIME_FORMAT_NUM)).concat(CrmebUtil.randomCount(111111111, 999999999).toString()).concat(".xlsx");
-
-        //自定义标题别名
-        LinkedHashMap<String, String> aliasMap = new LinkedHashMap<>();
-        aliasMap.put("title", "砍价活动名称");
-        aliasMap.put("info", "砍价活动简介");
-        aliasMap.put("price", "砍价金额");
-        aliasMap.put("bargainNum", "用户每次砍价的次数");
-        aliasMap.put("status", "砍价状态");
-        aliasMap.put("startTime", "砍价开启时间");
-        aliasMap.put("stopTime", "砍价结束时间");
-        aliasMap.put("sales", "销量");
-        aliasMap.put("quotaShow", "库存");
-        aliasMap.put("giveIntegral", "返多少积分");
-        aliasMap.put("addTime", "添加时间");
-
-        return ExportUtil.exportExecl(fileName, "砍价商品导出", voList, aliasMap);
-    }
+//    @Override
+//    public String exportBargainProduct(StoreBargainSearchRequest request) {
+//        PageParamRequest pageParamRequest = new PageParamRequest();
+//        pageParamRequest.setPage(Constants.DEFAULT_PAGE);
+//        pageParamRequest.setLimit(Constants.EXPORT_MAX_LIMIT);
+//        PageInfo<StoreBargainResponse> page = storeBargainService.getList(request, pageParamRequest);
+//        if (CollUtil.isEmpty(page.getList())) throw new CrmebException("没有可导出的数据!");
+//        List<StoreBargainResponse> list = page.getList();
+//        List<BargainProductExcelVo> voList = list.stream().map(temp -> {
+//            BargainProductExcelVo vo = new BargainProductExcelVo();
+//            BeanUtils.copyProperties(temp, vo);
+//            vo.setPrice("￥".concat(temp.getPrice().toString()));
+//            vo.setStatus(temp.getStatus() ? "开启" : "关闭");
+//            vo.setStartTime(temp.getStartTime());
+//            vo.setStopTime(temp.getStopTime());
+//            vo.setAddTime(temp.getAddTime());
+//            return vo;
+//        }).collect(Collectors.toList());
+//
+//        // 上传设置
+//        ExportUtil.setUpload(crmebConfig.getImagePath(), Constants.UPLOAD_MODEL_PATH_EXCEL, Constants.UPLOAD_TYPE_FILE);
+//
+//        // 文件名
+//        String fileName = "砍价".concat(DateUtil.nowDateTime(Constants.DATE_TIME_FORMAT_NUM)).concat(CrmebUtil.randomCount(111111111, 999999999).toString()).concat(".xlsx");
+//
+//        //自定义标题别名
+//        LinkedHashMap<String, String> aliasMap = new LinkedHashMap<>();
+//        aliasMap.put("title", "砍价活动名称");
+//        aliasMap.put("info", "砍价活动简介");
+//        aliasMap.put("price", "砍价金额");
+//        aliasMap.put("bargainNum", "用户每次砍价的次数");
+//        aliasMap.put("status", "砍价状态");
+//        aliasMap.put("startTime", "砍价开启时间");
+//        aliasMap.put("stopTime", "砍价结束时间");
+//        aliasMap.put("sales", "销量");
+//        aliasMap.put("quotaShow", "库存");
+//        aliasMap.put("giveIntegral", "返多少积分");
+//        aliasMap.put("addTime", "添加时间");
+//
+//        return ExportUtil.exportExecl(fileName, "砍价商品导出", voList, aliasMap);
+//    }
 
     /**
      * 导出拼团商品
      * @param request 请求参数
      * @return 导出地址
      */
-    @Override
-    public String exportCombinationProduct(StoreCombinationSearchRequest request) {
-        PageParamRequest pageParamRequest = new PageParamRequest();
-        pageParamRequest.setPage(Constants.DEFAULT_PAGE);
-        pageParamRequest.setLimit(Constants.EXPORT_MAX_LIMIT);
-        PageInfo<StoreCombinationResponse> page = storeCombinationService.getList(request, pageParamRequest);
-        if (CollUtil.isEmpty(page.getList())) throw new CrmebException("没有可导出的数据!");
-        List<StoreCombinationResponse> list = page.getList();
-        List<CombinationProductExcelVo> voList = list.stream().map(temp -> {
-            CombinationProductExcelVo vo = new CombinationProductExcelVo();
-            BeanUtils.copyProperties(temp, vo);
-            vo.setIsShow(temp.getIsShow() ? "开启" : "关闭");
-            vo.setStopTime(DateUtil.timestamp2DateStr(temp.getStopTime(), Constants.DATE_FORMAT_DATE));
-            return vo;
-        }).collect(Collectors.toList());
-
-        // 上传设置
-        ExportUtil.setUpload(crmebConfig.getImagePath(), Constants.UPLOAD_MODEL_PATH_EXCEL, Constants.UPLOAD_TYPE_FILE);
-
-        // 文件名
-        String fileName = "拼团".concat(DateUtil.nowDateTime(Constants.DATE_TIME_FORMAT_NUM)).concat(CrmebUtil.randomCount(111111111, 999999999).toString()).concat(".xlsx");
-
-        //自定义标题别名
-        LinkedHashMap<String, String> aliasMap = new LinkedHashMap<>();
-        aliasMap.put("id", "编号");
-        aliasMap.put("title", "拼团名称");
-        aliasMap.put("otPrice", "原价");
-        aliasMap.put("price", "拼团价");
-        aliasMap.put("quotaShow", "库存");
-        aliasMap.put("countPeople", "拼团人数");
-        aliasMap.put("countPeopleAll", "参与人数");
-        aliasMap.put("countPeoplePink", "成团数量");
-        aliasMap.put("sales", "销量");
-        aliasMap.put("isShow", "商品状态");
-        aliasMap.put("stopTime", "拼团结束时间");
-
-        return ExportUtil.exportExecl(fileName, "拼团商品导出", voList, aliasMap);
-    }
+//    @Override
+//    public String exportCombinationProduct(StoreCombinationSearchRequest request) {
+//        PageParamRequest pageParamRequest = new PageParamRequest();
+//        pageParamRequest.setPage(Constants.DEFAULT_PAGE);
+//        pageParamRequest.setLimit(Constants.EXPORT_MAX_LIMIT);
+//        PageInfo<StoreCombinationResponse> page = storeCombinationService.getList(request, pageParamRequest);
+//        if (CollUtil.isEmpty(page.getList())) throw new CrmebException("没有可导出的数据!");
+//        List<StoreCombinationResponse> list = page.getList();
+//        List<CombinationProductExcelVo> voList = list.stream().map(temp -> {
+//            CombinationProductExcelVo vo = new CombinationProductExcelVo();
+//            BeanUtils.copyProperties(temp, vo);
+//            vo.setIsShow(temp.getIsShow() ? "开启" : "关闭");
+//            vo.setStopTime(DateUtil.timestamp2DateStr(temp.getStopTime(), Constants.DATE_FORMAT_DATE));
+//            return vo;
+//        }).collect(Collectors.toList());
+//
+//        // 上传设置
+//        ExportUtil.setUpload(crmebConfig.getImagePath(), Constants.UPLOAD_MODEL_PATH_EXCEL, Constants.UPLOAD_TYPE_FILE);
+//
+//        // 文件名
+//        String fileName = "拼团".concat(DateUtil.nowDateTime(Constants.DATE_TIME_FORMAT_NUM)).concat(CrmebUtil.randomCount(111111111, 999999999).toString()).concat(".xlsx");
+//
+//        //自定义标题别名
+//        LinkedHashMap<String, String> aliasMap = new LinkedHashMap<>();
+//        aliasMap.put("id", "编号");
+//        aliasMap.put("title", "拼团名称");
+//        aliasMap.put("otPrice", "原价");
+//        aliasMap.put("price", "拼团价");
+//        aliasMap.put("quotaShow", "库存");
+//        aliasMap.put("countPeople", "拼团人数");
+//        aliasMap.put("countPeopleAll", "参与人数");
+//        aliasMap.put("countPeoplePink", "成团数量");
+//        aliasMap.put("sales", "销量");
+//        aliasMap.put("isShow", "商品状态");
+//        aliasMap.put("stopTime", "拼团结束时间");
+//
+//        return ExportUtil.exportExecl(fileName, "拼团商品导出", voList, aliasMap);
+//    }
 
     /**
      * 商品导出

@@ -154,36 +154,36 @@ public class IndexServiceImpl implements IndexService {
                 continue;
             }
             // 根据参与活动添加对应商品活动标示
-            HashMap<Integer, ProductActivityItemResponse> activityByProduct =
-                    productUtils.getActivityByProduct(storeProduct.getId(), storeProduct.getActivity());
-            if (CollUtil.isNotEmpty(activityByProduct)) {
-                for (Integer activity : activityList) {
-                    if (activity.equals(Constants.PRODUCT_TYPE_NORMAL)) {
-                        break;
-                    }
-                    if (activity.equals(Constants.PRODUCT_TYPE_SECKILL)) {
-                        ProductActivityItemResponse itemResponse = activityByProduct.get(Constants.PRODUCT_TYPE_SECKILL);
-                        if (ObjectUtil.isNotNull(itemResponse)) {
-                            productResponse.setActivityH5(itemResponse);
-                            break;
-                        }
-                    }
-                    if (activity.equals(Constants.PRODUCT_TYPE_BARGAIN)) {
-                        ProductActivityItemResponse itemResponse = activityByProduct.get(Constants.PRODUCT_TYPE_BARGAIN);
-                        if (ObjectUtil.isNotNull(itemResponse)) {
-                            productResponse.setActivityH5(itemResponse);
-                            break;
-                        }
-                    }
-                    if (activity.equals(Constants.PRODUCT_TYPE_PINGTUAN)) {
-                        ProductActivityItemResponse itemResponse = activityByProduct.get(Constants.PRODUCT_TYPE_PINGTUAN);
-                        if (ObjectUtil.isNotNull(itemResponse)) {
-                            productResponse.setActivityH5(itemResponse);
-                            break;
-                        }
-                    }
-                }
-            }
+//            HashMap<Integer, ProductActivityItemResponse> activityByProduct =
+//                    productUtils.getActivityByProduct(storeProduct.getId(), storeProduct.getActivity());
+//            if (CollUtil.isNotEmpty(activityByProduct)) {
+//                for (Integer activity : activityList) {
+//                    if (activity.equals(Constants.PRODUCT_TYPE_NORMAL)) {
+//                        break;
+//                    }
+//                    if (activity.equals(Constants.PRODUCT_TYPE_SECKILL)) {
+//                        ProductActivityItemResponse itemResponse = activityByProduct.get(Constants.PRODUCT_TYPE_SECKILL);
+//                        if (ObjectUtil.isNotNull(itemResponse)) {
+//                            productResponse.setActivityH5(itemResponse);
+//                            break;
+//                        }
+//                    }
+//                    if (activity.equals(Constants.PRODUCT_TYPE_BARGAIN)) {
+//                        ProductActivityItemResponse itemResponse = activityByProduct.get(Constants.PRODUCT_TYPE_BARGAIN);
+//                        if (ObjectUtil.isNotNull(itemResponse)) {
+//                            productResponse.setActivityH5(itemResponse);
+//                            break;
+//                        }
+//                    }
+//                    if (activity.equals(Constants.PRODUCT_TYPE_PINGTUAN)) {
+//                        ProductActivityItemResponse itemResponse = activityByProduct.get(Constants.PRODUCT_TYPE_PINGTUAN);
+//                        if (ObjectUtil.isNotNull(itemResponse)) {
+//                            productResponse.setActivityH5(itemResponse);
+//                            break;
+//                        }
+//                    }
+//                }
+//            }
             BeanUtils.copyProperties(storeProduct, productResponse);
             productResponseArrayList.add(productResponse);
         }

@@ -1,10 +1,7 @@
 package com.zbkj.admin.task.product;
 
 import com.zbkj.common.utils.DateUtil;
-import com.zbkj.service.service.StoreBargainService;
-import com.zbkj.service.service.StoreCombinationService;
 import com.zbkj.service.service.StoreProductService;
-import com.zbkj.service.service.StoreSeckillService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,23 +31,23 @@ public class ProductStockTask {
     @Autowired
     private StoreProductService storeProductService;
 
-    @Autowired
-    private StoreSeckillService storeSeckillService;
-
-    @Autowired
-    private StoreBargainService storeBargainService;
-
-    @Autowired
-    private StoreCombinationService storeCombinationService;
+//    @Autowired
+//    private StoreSeckillService storeSeckillService;
+//
+//    @Autowired
+//    private StoreBargainService storeBargainService;
+//
+//    @Autowired
+//    private StoreCombinationService storeCombinationService;
 
     @Scheduled(fixedDelay = 1000 * 60L) //1分钟同步一次数据
     public void init(){
         logger.info("---OrderTakeByUser task------produce Data with fixed rate task: Execution Time - {}", DateUtil.nowDateTime());
         try {
             storeProductService.consumeProductStock(); // 商品本身库存任务
-            storeSeckillService.consumeProductStock(); // 秒杀本身库存任务
-            storeBargainService.consumeProductStock(); // 砍价本身库存任务
-            storeCombinationService.consumeProductStock(); // 拼团本身库存任务
+//            storeSeckillService.consumeProductStock(); // 秒杀本身库存任务
+//            storeBargainService.consumeProductStock(); // 砍价本身库存任务
+//            storeCombinationService.consumeProductStock(); // 拼团本身库存任务
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("OrderTakeByUser.task" + " | msg : " + e.getMessage());

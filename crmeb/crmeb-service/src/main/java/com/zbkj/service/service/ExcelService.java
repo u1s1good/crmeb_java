@@ -24,14 +24,14 @@ public interface ExcelService{
      * @param request 请求参数
      * @return 导出地址
      */
-    String exportBargainProduct(StoreBargainSearchRequest request);
+//    String exportBargainProduct(StoreBargainSearchRequest request);
 
     /**
      * 导出拼团商品
      * @param request 请求参数
      * @return 导出地址
      */
-    String exportCombinationProduct(StoreCombinationSearchRequest request);
+//    String exportCombinationProduct(StoreCombinationSearchRequest request);
 
     /**
      * 商品导出

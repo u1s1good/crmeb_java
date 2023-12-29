@@ -96,14 +96,8 @@ public class StoreProductServiceImpl extends ServiceImpl<StoreProductDao, StoreP
     @Autowired
     private ProductUtils productUtils;
 
-    @Autowired
-    private StoreBargainService storeBargainService;
-
-    @Autowired
-    private StoreCombinationService storeCombinationService;
-
-    @Autowired
-    private StoreSeckillService storeSeckillService;
+//    @Autowired
+//    private StoreCombinationService storeCombinationService;
 
     @Autowired
     private OnePassService onePassService;
@@ -558,7 +552,7 @@ public class StoreProductServiceImpl extends ServiceImpl<StoreProductDao, StoreP
         storeProductResponse.setAttr(attrService.getByEntity(spaPram));
 
         // 设置商品所参与的活动
-        storeProductResponse.setActivityH5(productUtils.getProductCurrentActivity(storeProduct));
+//        storeProductResponse.setActivityH5(productUtils.getProductCurrentActivity(storeProduct));
         StoreProductAttrValue spavPram = new StoreProductAttrValue();
         spavPram.setProductId(id).setType(Constants.PRODUCT_TYPE_NORMAL);
         List<StoreProductAttrValue> storeProductAttrValues = storeProductAttrValueService.getByEntity(spavPram);
@@ -905,8 +899,7 @@ public class StoreProductServiceImpl extends ServiceImpl<StoreProductDao, StoreP
 
         LambdaUpdateWrapper<StoreProduct> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
         if (StrUtil.isNotBlank(type) && "delete".equals(type)) {
-            // 判断商品活动状态(秒杀、砍价、拼团)
-            isExistActivity(productId);
+
 
             lambdaUpdateWrapper.eq(StoreProduct::getId, productId);
             lambdaUpdateWrapper.set(StoreProduct::getIsDel, true);
@@ -917,28 +910,7 @@ public class StoreProductServiceImpl extends ServiceImpl<StoreProductDao, StoreP
         return update(lambdaUpdateWrapper);
     }
 
-    /**
-     * 判断商品活动状态(秒杀、砍价、拼团)
-     * @param productId
-     */
-    private void isExistActivity(Integer productId) {
-        Boolean existActivity = false;
-        // 秒杀活动判断
-        existActivity = storeSeckillService.isExistActivity(productId);
-        if (existActivity) {
-            throw new CrmebException("有商品关联的秒杀商品活动开启中，不能删除");
-        }
-        // 砍价活动判断
-        existActivity = storeBargainService.isExistActivity(productId);
-        if (existActivity) {
-            throw new CrmebException("有商品关联的砍价商品活动开启中，不能删除");
-        }
-        // 拼团活动判断
-        existActivity = storeCombinationService.isExistActivity(productId);
-        if (existActivity) {
-            throw new CrmebException("有商品关联的拼团商品活动开启中，不能删除");
-        }
-    }
+
 
     /**
      * 恢复已删除的商品

@@ -71,14 +71,14 @@ public class StoreOrderTaskServiceImpl implements StoreOrderTaskService {
     @Autowired
     private SystemConfigService systemConfigService;
 
-    @Autowired
-    private StoreSeckillService storeSeckillService;
-
-    @Autowired
-    private StoreBargainService storeBargainService;
-
-    @Autowired
-    private StoreCombinationService storeCombinationService;
+//    @Autowired
+//    private StoreSeckillService storeSeckillService;
+//
+//    @Autowired
+//    private StoreBargainService storeBargainService;
+//
+//    @Autowired
+//    private StoreCombinationService storeCombinationService;
 
     @Autowired
     private TransactionTemplate transactionTemplate;
@@ -101,8 +101,8 @@ public class StoreOrderTaskServiceImpl implements StoreOrderTaskService {
     @Autowired
     private OrderUtils orderUtils;
 
-    @Autowired
-    private StorePinkService storePinkService;
+//    @Autowired
+//    private StorePinkService storePinkService;
 
     @Autowired
     private UserIntegralRecordService userIntegralRecordService;
@@ -190,49 +190,49 @@ public class StoreOrderTaskServiceImpl implements StoreOrderTaskService {
 
             // 兼容处理秒杀数据退款
             // 秒杀商品回滚库存和销量
-            if(null != storeOrder.getSeckillId() && storeOrder.getSeckillId() > 0){
-                // 秒杀只会有一个商品
-                StoreOrderInfo orderInfo = orderInfoList.get(0);
-                StoreSeckill storeSeckill = storeSeckillService.getByIdException(storeOrder.getSeckillId());
-                storeSeckillService.operationStock(storeOrder.getSeckillId(), orderInfo.getPayNum(), "add");
-                attrValueService.operationStock(orderInfo.getAttrValueId(), orderInfo.getPayNum(), "add", Constants.PRODUCT_TYPE_SECKILL);
-                storeProductService.operationStock(storeSeckill.getProductId(), orderInfo.getPayNum(), "add");
-                List<StoreProductAttrValue> attrValueList = attrValueService.getListByProductIdAndType(storeSeckill.getProductId(), Constants.PRODUCT_TYPE_NORMAL);
-                attrValueList.forEach(e -> {
-                    if (e.getSuk().equals(orderInfo.getSku())) {
-                        attrValueService.operationStock(e.getId(), orderInfo.getPayNum(), "add", Constants.PRODUCT_TYPE_NORMAL);
-                    }
-                });
-            } else if (ObjectUtil.isNotNull(storeOrder.getBargainId()) && storeOrder.getBargainId() > 0) { // 砍价商品回滚销量库存
-                StoreOrderInfo orderInfo = orderInfoList.get(0);
-                StoreBargain storeBargain = storeBargainService.getByIdException(storeOrder.getBargainId());
-                storeBargainService.operationStock(storeBargain.getId(), orderInfo.getPayNum(), "add");
-                attrValueService.operationStock(orderInfo.getAttrValueId(), orderInfo.getPayNum(), "add", Constants.PRODUCT_TYPE_BARGAIN);
-                storeProductService.operationStock(storeBargain.getProductId(), orderInfo.getPayNum(), "add");
-                List<StoreProductAttrValue> attrValueList = attrValueService.getListByProductIdAndType(storeBargain.getProductId(), Constants.PRODUCT_TYPE_NORMAL);
-                attrValueList.forEach(e -> {
-                    if (e.getSuk().equals(orderInfo.getSku())) {
-                        attrValueService.operationStock(e.getId(), orderInfo.getPayNum(), "add", Constants.PRODUCT_TYPE_NORMAL);
-                    }
-                });
-            } else if (ObjectUtil.isNotNull(storeOrder.getCombinationId()) && storeOrder.getCombinationId() > 0) { // 拼团商品回滚销量库存
-                StoreOrderInfo orderInfo = orderInfoList.get(0);
-                StoreCombination storeCombination = storeCombinationService.getByIdException(storeOrder.getCombinationId());
-                storeCombinationService.operationStock(storeCombination.getId(), orderInfo.getPayNum(), "add");
-                attrValueService.operationStock(orderInfo.getAttrValueId(), orderInfo.getPayNum(), "add", Constants.PRODUCT_TYPE_PINGTUAN);
-                storeProductService.operationStock(storeCombination.getProductId(), orderInfo.getPayNum(), "add");
-                List<StoreProductAttrValue> attrValueList = attrValueService.getListByProductIdAndType(storeCombination.getProductId(), Constants.PRODUCT_TYPE_NORMAL);
-                attrValueList.forEach(e -> {
-                    if (e.getSuk().equals(orderInfo.getSku())) {
-                        attrValueService.operationStock(e.getId(), orderInfo.getPayNum(), "add", Constants.PRODUCT_TYPE_NORMAL);
-                    }
-                });
-            } else { // 正常商品回滚销量库存
+//            if(null != storeOrder.getSeckillId() && storeOrder.getSeckillId() > 0){
+//                // 秒杀只会有一个商品
+//                StoreOrderInfo orderInfo = orderInfoList.get(0);
+//                StoreSeckill storeSeckill = storeSeckillService.getByIdException(storeOrder.getSeckillId());
+//                storeSeckillService.operationStock(storeOrder.getSeckillId(), orderInfo.getPayNum(), "add");
+//                attrValueService.operationStock(orderInfo.getAttrValueId(), orderInfo.getPayNum(), "add", Constants.PRODUCT_TYPE_SECKILL);
+//                storeProductService.operationStock(storeSeckill.getProductId(), orderInfo.getPayNum(), "add");
+//                List<StoreProductAttrValue> attrValueList = attrValueService.getListByProductIdAndType(storeSeckill.getProductId(), Constants.PRODUCT_TYPE_NORMAL);
+//                attrValueList.forEach(e -> {
+//                    if (e.getSuk().equals(orderInfo.getSku())) {
+//                        attrValueService.operationStock(e.getId(), orderInfo.getPayNum(), "add", Constants.PRODUCT_TYPE_NORMAL);
+//                    }
+//                });
+//            } else if (ObjectUtil.isNotNull(storeOrder.getBargainId()) && storeOrder.getBargainId() > 0) { // 砍价商品回滚销量库存
+//                StoreOrderInfo orderInfo = orderInfoList.get(0);
+//                StoreBargain storeBargain = storeBargainService.getByIdException(storeOrder.getBargainId());
+//                storeBargainService.operationStock(storeBargain.getId(), orderInfo.getPayNum(), "add");
+//                attrValueService.operationStock(orderInfo.getAttrValueId(), orderInfo.getPayNum(), "add", Constants.PRODUCT_TYPE_BARGAIN);
+//                storeProductService.operationStock(storeBargain.getProductId(), orderInfo.getPayNum(), "add");
+//                List<StoreProductAttrValue> attrValueList = attrValueService.getListByProductIdAndType(storeBargain.getProductId(), Constants.PRODUCT_TYPE_NORMAL);
+//                attrValueList.forEach(e -> {
+//                    if (e.getSuk().equals(orderInfo.getSku())) {
+//                        attrValueService.operationStock(e.getId(), orderInfo.getPayNum(), "add", Constants.PRODUCT_TYPE_NORMAL);
+//                    }
+//                });
+//            } else if (ObjectUtil.isNotNull(storeOrder.getCombinationId()) && storeOrder.getCombinationId() > 0) { // 拼团商品回滚销量库存
+//                StoreOrderInfo orderInfo = orderInfoList.get(0);
+//                StoreCombination storeCombination = storeCombinationService.getByIdException(storeOrder.getCombinationId());
+//                storeCombinationService.operationStock(storeCombination.getId(), orderInfo.getPayNum(), "add");
+//                attrValueService.operationStock(orderInfo.getAttrValueId(), orderInfo.getPayNum(), "add", Constants.PRODUCT_TYPE_PINGTUAN);
+//                storeProductService.operationStock(storeCombination.getProductId(), orderInfo.getPayNum(), "add");
+//                List<StoreProductAttrValue> attrValueList = attrValueService.getListByProductIdAndType(storeCombination.getProductId(), Constants.PRODUCT_TYPE_NORMAL);
+//                attrValueList.forEach(e -> {
+//                    if (e.getSuk().equals(orderInfo.getSku())) {
+//                        attrValueService.operationStock(e.getId(), orderInfo.getPayNum(), "add", Constants.PRODUCT_TYPE_NORMAL);
+//                    }
+//                });
+//            } else { // 正常商品回滚销量库存
                 for (StoreOrderInfo orderInfoVo : orderInfoList) {
                     storeProductService.operationStock(orderInfoVo.getProductId(), orderInfoVo.getPayNum(), "add");
                     attrValueService.operationStock(orderInfoVo.getAttrValueId(), orderInfoVo.getPayNum(), "add", Constants.PRODUCT_TYPE_NORMAL);
                 }
-            }
+//            }
         }catch (Exception e){
 //            throw new CrmebException(e.getMessage());
             logger.error("回滚库存失败，error = " + e.getMessage());
@@ -344,12 +344,12 @@ public class StoreOrderTaskServiceImpl implements StoreOrderTaskService {
             storeOrderService.updateById(tempOrder);
 
             // 拼团状态处理
-            if (storeOrder.getCombinationId() > 0) {
-                StorePink storePink = storePinkService.getByOrderId(storeOrder.getOrderId());
-                storePink.setStatus(3);
-                storePink.setIsRefund(true);
-                storePinkService.updateById(storePink);
-            }
+//            if (storeOrder.getCombinationId() > 0) {
+//                StorePink storePink = storePinkService.getByOrderId(storeOrder.getOrderId());
+//                storePink.setStatus(3);
+//                storePink.setIsRefund(true);
+//                storePinkService.updateById(storePink);
+//            }
 
             // 退优惠券
             if (storeOrder.getCouponId() > 0 ) {

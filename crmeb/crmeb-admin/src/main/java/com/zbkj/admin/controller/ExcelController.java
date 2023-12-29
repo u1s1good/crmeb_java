@@ -55,33 +55,33 @@ public class ExcelController {
         return CommonResult.success(map);
     }
 
-    /**
-     * 砍价商品导出
-     * @param request 搜索条件
-     */
-    @PreAuthorize("hasAuthority('admin:export:excel:bargain')")
-    @ApiOperation(value = "砍价商品导出")
-    @RequestMapping(value = "/bargain/product", method = RequestMethod.GET)
-    public CommonResult<HashMap<String, String>> exportBargainProduct(@Validated StoreBargainSearchRequest request) {
-        String fileName = excelService.exportBargainProduct(request);
-        HashMap<String, String> map = CollUtil.newHashMap();
-        map.put("fileName", fileName);
-        return CommonResult.success(map);
-    }
+//    /**
+//     * 砍价商品导出
+//     * @param request 搜索条件
+//     */
+//    @PreAuthorize("hasAuthority('admin:export:excel:bargain')")
+//    @ApiOperation(value = "砍价商品导出")
+//    @RequestMapping(value = "/bargain/product", method = RequestMethod.GET)
+//    public CommonResult<HashMap<String, String>> exportBargainProduct(@Validated StoreBargainSearchRequest request) {
+//        String fileName = excelService.exportBargainProduct(request);
+//        HashMap<String, String> map = CollUtil.newHashMap();
+//        map.put("fileName", fileName);
+//        return CommonResult.success(map);
+//    }
 
-    /**
-     * 拼团商品导出
-     * @param request 搜索条件
-     */
-    @PreAuthorize("hasAuthority('admin:export:excel:combiantion')")
-    @ApiOperation(value = "拼团商品导出")
-    @RequestMapping(value = "/combiantion/product", method = RequestMethod.GET)
-    public CommonResult<HashMap<String, String>> exportCombinationProduct(@Validated StoreCombinationSearchRequest request) {
-        String fileName = excelService.exportCombinationProduct(request);
-        HashMap<String, String> map = CollUtil.newHashMap();
-        map.put("fileName", fileName);
-        return CommonResult.success(map);
-    }
+//    /**
+//     * 拼团商品导出
+//     * @param request 搜索条件
+//     */
+//    @PreAuthorize("hasAuthority('admin:export:excel:combiantion')")
+//    @ApiOperation(value = "拼团商品导出")
+//    @RequestMapping(value = "/combiantion/product", method = RequestMethod.GET)
+//    public CommonResult<HashMap<String, String>> exportCombinationProduct(@Validated StoreCombinationSearchRequest request) {
+//        String fileName = excelService.exportCombinationProduct(request);
+//        HashMap<String, String> map = CollUtil.newHashMap();
+//        map.put("fileName", fileName);
+//        return CommonResult.success(map);
+//    }
 
     /**
      * 订单导出

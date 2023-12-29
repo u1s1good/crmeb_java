@@ -7,7 +7,6 @@
         <module>crmeb-common</module>
         <module>crmeb-service</module>
         <module>crmeb-admin</module>
-        <module>crmeb-front</module>
     </modules>
     <!--<parent>
         <groupId>org.springframework.boot</groupId>
