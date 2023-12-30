@@ -93,12 +93,12 @@
                 <el-radio :label="true">多规格</el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="佣金设置：" props="isSub">
+            <!-- <el-form-item label="佣金设置：" props="isSub">
               <el-radio-group v-model="formValidate.isSub" @change="onChangetype(formValidate.isSub)" :disabled="isDisabled">
                 <el-radio :label="true" class="radio">单独设置</el-radio>
                 <el-radio :label="false">默认设置</el-radio>
               </el-radio-group>
-            </el-form-item>
+            </el-form-item> -->
           </el-col>
           <!-- 多规格添加-->
           <el-col v-if="formValidate.specType && !isDisabled" :span="24" class="noForm">
@@ -306,11 +306,11 @@
                 <el-input-number v-model="formValidate.sort" :min="0" placeholder="请输入排序" :disabled="isDisabled" />
               </el-form-item>
             </el-col>
-            <el-col v-bind="grid">
+            <!-- <el-col v-bind="grid">
               <el-form-item label="积分：">
                 <el-input-number v-model="formValidate.giveIntegral" :min="0" placeholder="请输入排序" :disabled="isDisabled" />
               </el-form-item>
-            </el-col>
+            </el-col> -->
             <el-col v-bind="grid">
               <el-form-item label="虚拟销量：">
                 <el-input-number v-model="formValidate.ficti" :min="0" placeholder="请输入排序" :disabled="isDisabled" />
@@ -324,7 +324,7 @@
               </el-checkbox-group>
             </el-form-item>
           </el-col>
-          <el-col :span="24">
+          <!-- <el-col :span="24">
             <el-form-item label="活动优先级：">
               <div class="color-list acea-row row-middle">
                 <div
@@ -341,7 +341,7 @@
                 <div class="tip">可拖动按钮调整活动的优先展示顺序</div>
               </div>
             </el-form-item>
-          </el-col>
+          </el-col> -->
           <el-col :span="24">
             <el-form-item label="优惠券：" class="proCoupon">
               <div class="acea-row">

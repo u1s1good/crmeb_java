@@ -1,14 +1,7 @@
 <template>
   <div class="page-account" :style="backgroundImages ? { backgroundImage: 'url(' + backgroundImages + ')'} : { backgroundImage: 'url(' + backgroundImageMo + ')'}">
-    <div class="container" :class="[ fullWidth > 768 ? 'containerSamll':'containerBig']">
-      <template v-if="fullWidth>768">
-        <swiper :options="swiperOption" class="swiperPross">
-          <swiper-slide v-for="(item,index) in swiperList" :key="index" class="swiperPic">
-            <img :src="item.pic">
-          </swiper-slide>
-          <div slot="pagination" class="swiper-pagination" />
-        </swiper>
-      </template>
+    <div class="container containerBig">
+      
       <div class="index_from page-account-container">
         <div class="page-account-top ">
           <div class="page-account-top-logo">
@@ -188,19 +181,10 @@ export default {
         }
       }
     }
-    window.addEventListener('resize', this.handleResize)
   },
   mounted() {
     this.getInfo()
-    this.$nextTick(() => {
-      if (this.screenWidth < 768) {
-        document
-          .getElementsByTagName("canvas")[0]
-          .removeAttribute("class", "index_bg");
-      } else {
-        document.getElementsByTagName("canvas")[0].className = "index_bg";
-      }
-    });
+
     if (this.loginForm.account === '') {
       this.$refs.account.focus()
     } else if (this.loginForm.pwd === '') {
@@ -209,24 +193,9 @@ export default {
     this.getCaptcha()
     this.agentWeiXinLogin()
   },
-  beforeCreate() {
-    if (this.fullWidth < 768) {
-      document
-        .getElementsByTagName("canvas")[0]
-        .removeAttribute("class", "index_bg");
-    } else {
-      document.getElementsByTagName("canvas")[0].className = "index_bg";
-    }
-  },
-  destroyed() {
-    // window.removeEventListener('storage', this.afterQRScan)
-  },
-  beforeDestroy: function() {
-    window.removeEventListener('resize', this.handleResize)
-    document
-      .getElementsByTagName("canvas")[0]
-      .removeAttribute("class", "index_bg");
-  },
+
+
+
   methods: {
     agentWeiXinLogin(){ // 判断是否需要微信公众号登陆
       const _isWechat = this.$wechat.isWeixin();
@@ -257,16 +226,7 @@ export default {
       let url = this.$route.query.redirect ? this.$route.query.redirect : '/dashboard'
       this.$wechat.oAuth(url, 'login')
     },
-    handleResize(event) {
-      this.fullWidth = document.body.clientWidth
-      if (this.fullWidth < 768) {
-        document
-          .getElementsByTagName("canvas")[0]
-          .removeAttribute("class", "index_bg");
-      } else {
-        document.getElementsByTagName("canvas")[0].className = "index_bg";
-      }
-    },
+
     getInfo() {
       getLoginPicApi().then(res => {
         this.swiperList = res.banner
@@ -519,7 +479,7 @@ export default {
 
   .containerBig {
     width: auto !important;
-    background: #f7f7f7 !important;
+    background: #fff !important;
   }
 
   .index_from {

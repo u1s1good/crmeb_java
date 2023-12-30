@@ -75,7 +75,7 @@
 				</view>
 				<view class="contenBox">
 					<!-- 轮播 -->
-					<view class="slider-wrapper" v-if="imgUrls.length>0">
+					<!-- <view class="slider-wrapper" v-if="imgUrls.length>0">
 						<swiper indicator-dots="true" :autoplay="autoplay" :circular="circular" :interval="interval"
 							:duration="duration" indicator-color="rgba(255,255,255,0.6)" indicator-active-color="#fff">
 							<block v-for="(item,index) in imgUrls" :key="index">
@@ -84,7 +84,7 @@
 								</swiper-item>
 							</block>
 						</swiper>
-					</view>
+					</view> -->
 
 					<!-- 会员菜单 -->
 					<view class="user-menus" style="margin-top: 20rpx;">
