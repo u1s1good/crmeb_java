@@ -10,7 +10,7 @@
                 <el-radio-button label="unPaid">未支付 {{ '(' +orderChartType.unPaid?orderChartType.unPaid:0+ ')' }}</el-radio-button>
                 <el-radio-button label="notShipped">未发货 {{ '(' +orderChartType.notShipped?orderChartType.notShipped:0+ ')' }}</el-radio-button>
                 <el-radio-button label="spike">待收货 {{ '(' +orderChartType.spike?orderChartType.spike:0+ ')' }}</el-radio-button>
-                <el-radio-button label="bargain">待评价 {{ '(' +orderChartType.bargain?orderChartType.bargain:0+ ')' }}</el-radio-button>
+                <!-- <el-radio-button label="bargain">待评价 {{ '(' +orderChartType.bargain?orderChartType.bargain:0+ ')' }}</el-radio-button> -->
                 <el-radio-button label="complete">交易完成 {{ '(' +orderChartType.complete?orderChartType.complete:0+ ')' }}</el-radio-button>
                 <el-radio-button label="toBeWrittenOff">待核销 {{ '(' +orderChartType.toBeWrittenOff?orderChartType.toBeWrittenOff:0+ ')' }}</el-radio-button>
                 <el-radio-button label="refunding">退款中 {{ '(' +orderChartType.refunding?orderChartType.refunding:0+ ')' }}</el-radio-button>
@@ -36,6 +36,11 @@
             </el-form-item> -->
              <el-form-item label="订单号：" class="width100">
               <el-input v-model="tableFrom.orderNo" placeholder="请输入订单号" class="selWidth" size="small" clearable>
+                <el-button slot="append" icon="el-icon-search" size="small" @click="seachList" />
+              </el-input>
+            </el-form-item>
+            <el-form-item label="核销码" class="width100">
+              <el-input v-model="tableFrom.verifyCode" placeholder="请输入订单号" class="selWidth" size="small" clearable>
                 <el-button slot="append" icon="el-icon-search" size="small" @click="seachList" />
               </el-input>
             </el-form-item>
@@ -358,7 +363,8 @@
             orderNo: '',
             page: 1,
             limit: 10,
-            type: 0
+            type: 0,
+            verifyCode: '',
           },
           orderChartType: {},
           timeVal: [],
