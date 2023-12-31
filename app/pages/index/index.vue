@@ -112,7 +112,7 @@
 
 				<!-- 首页推荐 -->
 				<!-- :class="iSshowH?'on':''" -->
-			<!-- 	<view class="sticky-box" :style="'top:'+(marTop)+'px;'">
+				<view class="sticky-box" :style="'top:'+(marTop)+'px;'">
 					<scroll-view class="scroll-view_H" style="width: 100%;" scroll-x="true" scroll-with-animation
 						:scroll-left="tabsScrollLeft" @scroll="scroll">
 						<view class="tab nav-bd" id="tab_list">
@@ -123,7 +123,7 @@
 							</view>
 						</view>
 					</scroll-view>
-				</view> -->
+				</view>
 
 				<!-- 首发新品 -->
 				<view class="index-product-wrapper" :class="iSshowH?'on':''">

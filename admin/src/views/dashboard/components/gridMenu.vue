@@ -9,14 +9,14 @@
                 </router-link>
             </el-card>
         </el-col>
-        <el-col v-bind="grid" class="ivu-mb" v-if="checkPermi(['admin:system:config:info'])">
+        <!-- <el-col v-bind="grid" class="ivu-mb" v-if="checkPermi(['admin:system:config:info'])">
             <el-card :bordered="false">
                 <router-link :to="{path:'/operation/setting'}">
                     <i class="el-icon-setting" style="color:#95de64" />
                     <p>系统设置</p>
                 </router-link>
             </el-card>
-        </el-col>
+        </el-col> -->
         <el-col v-bind="grid" class="ivu-mb" v-if="checkPermi(['admin:product:list'])">
             <el-card :bordered="false">
                 <router-link :to="{path:'/store/index'}">
@@ -74,11 +74,11 @@ import { checkPermi } from "@/utils/permission";
         data () {
             return {
                 grid: {
-                    xl: 3,
-                    lg: 3,
+                    xl: 4,
+                    lg: 4,
                     md: 6,
                     sm: 8,
-                    xs: 8
+                    xs: 12
                 }
             }
         },
