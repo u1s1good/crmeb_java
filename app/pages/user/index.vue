@@ -111,7 +111,7 @@
 							<!-- #endif -->
 						</view>
 					</view>
-					<!-- <image src="/static/images/support.png" alt="" class='support'> -->
+					<image src="/static/images/support.png" alt="" class='support'>
 					<view class="uni-p-b-98"></view>
 				</view>
 
@@ -388,6 +388,7 @@
 		height: 74rpx;
 		margin: 54rpx auto;
 		display: block;
+		margin-top: 415rpx;
 	}
 
 	.new-users {

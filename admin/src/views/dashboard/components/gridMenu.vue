@@ -21,7 +21,7 @@
             <el-card :bordered="false">
                 <router-link :to="{path:'/store/index'}">
                     <i class="el-icon-goods" style="color:#ff9c6e" />
-                    <p>商品</p>
+                    <p>商品管理</p>
                 </router-link>
             </el-card>
         </el-col>
@@ -33,6 +33,15 @@
                 </router-link>
             </el-card>
         </el-col>
+        <el-col v-bind="grid" class="ivu-mb" v-if="checkPermi(['admin:order:list'])">
+            <el-card :bordered="false">
+                <router-link :to="{path:'/operation/deliverGoods/takeGoods/collateOrder'}">
+                    <i class="el-icon-s-order" style="color:#b37feb" />
+                    <p>核销订单</p>
+                </router-link>
+            </el-card>
+        </el-col>
+      
         <!-- <el-col v-bind="grid" class="ivu-mb" v-if="checkPermi(['admin:pass:login'])">
             <el-card :bordered="false">
                 <router-link :to="{path:'/operation/systemSms/config'}">
