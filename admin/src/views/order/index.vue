@@ -89,7 +89,7 @@
           label="收货人"
           min-width="100"
         />
-        <el-table-column
+       <!-- <el-table-column
           label="商品信息"
           min-width="400"
         >
@@ -119,7 +119,7 @@
               </div>
             </el-popover>
           </template>
-        </el-table-column>
+        </el-table-column>-->
         <el-table-column
           prop="payPrice"
           label="实际支付"
@@ -172,17 +172,17 @@
           label="下单时间"
           min-width="150"
         />
-        <el-table-column label="操作" min-width="150" fixed="right" align="center">
+        <el-table-column label="操作" min-width="150" fixed="right" >
           <template slot-scope="scope">
-            <el-button v-if="scope.row.paid === false" type="text" size="small" @click="edit(scope.row)" class="mr10" v-hasPermi="['admin:order:update:price']">编辑</el-button> 
-            <el-button v-if="scope.row.statusStr.key === 'notShipped' && scope.row.refundStatus ===0" type="text" size="small" class="mr10" @click="sendOrder(scope.row)" v-hasPermi="['admin:order:send']">发送货</el-button>
-            <el-button v-if=" scope.row.statusStr.key === 'toBeWrittenOff'  && scope.row.paid == true && scope.row.refundStatus === 0 " type="text" size="small" class="mr10" v-hasPermi="['admin:order:write:update']" @click="onWriteOff(scope.row)">立即核销</el-button>
+            <el-button type="text" size="small" @click.native="onOrderDetails(scope.row.orderId)"  v-if="checkPermi(['admin:order:info'])">订单详情</el-button>
+            <el-button v-if="scope.row.paid === false" type="text" size="small" @click="edit(scope.row)"  v-hasPermi="['admin:order:update:price']">编辑</el-button> 
+            <el-button v-if="scope.row.statusStr.key === 'notShipped' && scope.row.refundStatus ===0" type="text" size="small"  @click="sendOrder(scope.row)" v-hasPermi="['admin:order:send']">发送货</el-button>
+            <el-button v-if=" scope.row.statusStr.key === 'toBeWrittenOff'  && scope.row.paid == true && scope.row.refundStatus === 0 " type="text" size="small"  v-hasPermi="['admin:order:write:update']" @click="onWriteOff(scope.row)">立即核销</el-button>
             <el-dropdown trigger="click">
-              <span class="el-dropdown-link">
+              <span class="el-dropdown-link ml10">
                 更多<i class="el-icon-arrow-down el-icon--right" />
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="onOrderDetails(scope.row.orderId)" v-if="checkPermi(['admin:order:info'])">订单详情</el-dropdown-item>
                 <el-dropdown-item @click.native="onOrderLog(scope.row.orderId)" v-if="checkPermi(['admin:order:status:list'])">订单记录</el-dropdown-item>
                 <el-dropdown-item @click.native="onOrderMark(scope.row)" v-if="checkPermi(['admin:order:mark'])">订单备注</el-dropdown-item>
                 <el-dropdown-item v-if="scope.row.refundStatus === 1 && checkPermi(['admin:order:refund:refuse'])" @click.native="onOrderRefuse(scope.row)">拒绝退款</el-dropdown-item>
