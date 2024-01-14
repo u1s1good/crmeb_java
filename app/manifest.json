@@ -1,7 +1,7 @@
 {
-    "name" : "crmeb",
+    "name" : "佳佳源",
     "appid" : "__UNI__E8BDBA5",
-    "description" : "crmeb商城",
+    "description" : "佳佳源",
     "versionName" : "1.0.0",
     "versionCode" : 1001,
     "transformPx" : false,
@@ -59,7 +59,7 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "wx079d72012f04c88d",
+        "appid" : "wxc1504992c1ddd3a5",
         "setting" : {
             "urlCheck" : true,
             "minified" : true,
