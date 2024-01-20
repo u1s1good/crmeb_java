@@ -260,7 +260,7 @@ public class OrderServiceImpl implements OrderService {
             throw new CrmebException("订单状态错误");
         }
         //已收货，待评价
-        storeOrder.setStatus(Constants.ORDER_STATUS_INT_BARGAIN);
+        storeOrder.setStatus(Constants.ORDER_STATUS_INT_COMPLETE);
         boolean result = storeOrderService.updateById(storeOrder);
         if (result) {
             //后续操作放入redis

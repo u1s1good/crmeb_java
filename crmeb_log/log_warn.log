@@ -1,6 +1,6 @@
 {
                     "app": "Crmeb",
-                    "timestamp":"2023-12-29 10:29:00.613",
+                    "timestamp":"2024-01-14 12:08:26.224",
                     "level": "WARN",
                     "thread": "main",
                     "class": "o.m.spring.mapper.ClassPathMapperScanner",

@@ -143,7 +143,11 @@ public class StoreOrderServiceImpl extends ServiceImpl<StoreOrderDao, StoreOrder
                 , "refund_reason_wap_img", "refund_reason_wap_explain", "refund_reason_wap", "refund_reason", "refund_reason_time"
                 , "is_del", "combination_id", "pink_id", "seckill_id", "bargain_id", "verify_code", "remark", "paid", "is_system_del", "shipping_type", "type", "is_alter_price");
         if (StrUtil.isNotBlank(request.getOrderNo())) {
-            queryWrapper.eq("order_id", request.getOrderNo());
+            queryWrapper.like("order_id", request.getOrderNo());
+        }
+
+        if (StrUtil.isNotBlank(request.getVerifyCode())) {
+            queryWrapper.eq("Verify_code", request.getVerifyCode());
         }
         getRequestTimeWhere(queryWrapper, request);
         getStatusWhere(queryWrapper, request.getStatus());

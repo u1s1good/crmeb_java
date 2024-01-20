@@ -38,14 +38,14 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://8.141.9.98:3306/jjyshop?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimeZone=GMT+8
-    username: root01
-    password: chint1984
+    url: jdbc:mysql://8.138.85.142:3306/jjyshop?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimeZone=GMT+8
+    username: jjyshop
+    password: PZYfcCkieCzL3GrX
 
   redis:
-    host: 8.141.9.98 #地址
+    host: 8.138.85.142 #地址
     port: 6379 #端口
-    password: chint1984
+    password: PZYfcCkieCzL3GrX
     timeout: 30000 # 连接超时时间（毫秒）
     database: 15  #默认数据库
     jedis:

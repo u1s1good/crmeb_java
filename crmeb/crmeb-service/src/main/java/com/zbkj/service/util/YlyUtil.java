@@ -171,8 +171,9 @@ public class YlyUtil {
                 "订单备注："+ ylyPrintRequest.getNote()+"</FH>\n" +
                 "********************************\n" +
                 "<FH>" +
-                "商品名称 单价 数量 金额\n" +
+                "商品名称     单价   数量   金额\n" +
                 "" + ylyPrintFormatGoodsList(ylyPrintRequest.getGoods())+
+
                 "</FH>" +
                 "********************************\n" +
                 "<FH>" +
@@ -210,9 +211,10 @@ public class YlyUtil {
         StringBuilder printGoodsString = new StringBuilder();
         for (YlyPrintRequestGoods goood : goods) {
             printGoodsString.append(goood.getGoodsName());
-            printGoodsString.append(" ").append(goood.getUnitPrice());
-            printGoodsString.append(" ").append(goood.getNum());
-            printGoodsString.append(" ").append(goood.getMoney()).append("\n");
+            printGoodsString.append("   ").append(goood.getUnitPrice());
+            printGoodsString.append("    ").append(goood.getNum());
+            printGoodsString.append("    ").append(goood.getMoney()).append("\n");
+            printGoodsString.append("规格：").append(goood.getSku()).append("\n");
         }
         return printGoodsString.toString();
     }

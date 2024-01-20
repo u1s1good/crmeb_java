@@ -46,4 +46,6 @@ public class StoreOrderSearchRequest implements Serializable {
     @NotNull(message = "订单类型不能为空")
     @Range(min = 0, max = 2, message = "未知的订单类型")
     private Integer type;
+    private String verifyCode;
+
 }

@@ -14,8 +14,9 @@ public class YlyPrintRequestGoods {
     private String UnitPrice;
     private String Num;
     private String Money;
+    private String Sku;
 
-    public YlyPrintRequestGoods(String goodsName, String unitPrice, String num, String money) {
+    public YlyPrintRequestGoods(String goodsName, String unitPrice, String num, String money,String sku) {
         // 打印商品名称只打印前10位
         String LastGoodsName = goodsName;
         if(StringUtils.isNotBlank(goodsName) && goodsName.length() > 10){
@@ -25,5 +26,6 @@ public class YlyPrintRequestGoods {
         UnitPrice = unitPrice;
         Num = num;
         Money = money;
+        Sku = sku;
     }
 }

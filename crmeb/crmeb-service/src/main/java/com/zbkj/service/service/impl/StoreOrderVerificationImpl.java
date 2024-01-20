@@ -177,7 +177,7 @@ public class StoreOrderVerificationImpl implements StoreOrderVerification {
         // 添加核销人员后执行核销操作
         StoreOrder storeOrder = new StoreOrder();
         BeanUtils.copyProperties(existOrder,storeOrder);
-        storeOrder.setStatus(Constants.ORDER_STATUS_INT_BARGAIN);
+        storeOrder.setStatus(Constants.ORDER_STATUS_INT_COMPLETE);
         storeOrder.setClerkId(currentAdmin.getId());
         boolean saveStatus = dao.updateById(storeOrder) > 0;
 

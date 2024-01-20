@@ -76,7 +76,7 @@ public class YlyPrintServiceImpl implements YlyPrintService {
             goods.add(new YlyPrintRequestGoods(storeOrderInfo.getInfo().getProductName()
                     ,storeOrderInfo.getInfo().getPrice().toString(),
                     storeOrderInfo.getInfo().getPayNum()+"",
-                    exitOrder.getPayPrice().toString()));
+                    exitOrder.getPayPrice().toString(),storeOrderInfo.getInfo().getSku()));
         }
 
         YlyPrintRequest ylyPrintRequest = new YlyPrintRequest();
