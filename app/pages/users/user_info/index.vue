@@ -17,32 +17,11 @@
 					</view>
 					<view class='item acea-row row-between-wrapper'>
 						<view>手机号码</view>
-						<navigator url="/pages/users/app_login/index" hover-class="none" class="input"
-							v-if="!userInfo.phone">
-							点击绑定手机号<text class="iconfont icon-xiangyou"></text>
-						</navigator>
-						<navigator url="/pages/users/user_phone/index" hover-class="none" class="input" v-else>
-							<view class='input acea-row row-between-wrapper'>
-								<input type='text' disabled='true' name='phone' :value='userInfo.phone'
-									class='id'></input>
-								<text class='iconfont icon-xiangyou'></text>
-							</view>
-						</navigator>
-						<!-- <navigator url="/pages/users/user_phone/index" hover-class="none" class="input" v-if="!memberInfo.phone">
-							点击绑定手机号<text class="iconfont icon-xiangyou"></text>
-						</navigator>
-						<view class='input acea-row row-between-wrapper' v-else>
-							<input type='text' disabled='true' name='phone' :value='memberInfo.phone' class='id'></input>
-							<text class='iconfont icon-suozi'></text>
-						</view> -->
-					</view>
-					<view class='item acea-row row-between-wrapper'>
-						<view>ID号</view>
-						<view class='input acea-row row-between-wrapper'>
-							<input type='text' :value='uid' disabled='true' class='id'></input>
-							<text class='iconfont icon-suozi'></text>
+						<view class='input'><input type='text' name='phone' :value='userInfo.phone'></input>
 						</view>
 					</view>
+					
+					
 					<!-- #ifdef MP -->
 					<view class='item acea-row row-between-wrapper'>
 						<view>权限设置</view>
@@ -51,12 +30,7 @@
 						</view>
 					</view>
 					<!-- #endif -->
-					<view class="item acea-row row-between-wrapper" v-if="userInfo.phone">
-						<view>密码</view>
-						<navigator url="/pages/users/user_pwd_edit/index" hover-class="none" class="input">
-							点击修改密码<text class="iconfont icon-xiangyou"></text>
-						</navigator>
-					</view>
+					
 				</view>
 				<button class='modifyBnt bg-color' formType="submit">保存修改</button>
 				<!-- #ifdef H5 -->
