@@ -36,6 +36,10 @@
           <div class="description-term" v-if="orderDatalist.refundReasonTime">退款时间：{{ orderDatalist.refundReasonTime }}
           </div>
           <div class="description-term">支付方式：{{ orderDatalist.payTypeStr }}</div>
+          <div class="description-term" v-if="orderDatalist.payTypeStr">微信支付号：{{ orderDatalist.outTradeNo }} <i
+              style="cursor: pointer;" class="el-icon-document-copy" id="copy-button"
+              :data-clipboard-text="orderDatalist.outTradeNo"></i></div>
+
           <!-- <div class="description-term">推广人：{{orderDatalist.spreadName | filterEmpty}}</div> -->
           <div class="description-term"
             v-if="orderDatalist.shippingType === 2 && orderDatalist.statusStr.key === 'notShipped'">
@@ -124,7 +128,7 @@
 </template>
 
 <script>
-0
+import ClipboardJS from 'clipboard'
 import { orderDetailApi, getLogisticsInfoApi } from '@/api/order'
 export default {
   name: 'OrderDetail',
@@ -145,6 +149,17 @@ export default {
     }
   },
   mounted() {
+    // 使用 ClipboardJS 初始化
+    const clipboard = new ClipboardJS('#copy-button');
+
+    // 监听复制成功事件
+    clipboard.on('success', (e) => {
+      this.$message.success('复制成功')
+    });
+  },
+  beforeDestroy() {
+    // 清理 ClipboardJS 实例
+    clipboard.destroy();
   },
   methods: {
     openLogistics() {
@@ -259,7 +274,7 @@ export default {
 }
 
 ::v-deep .el-drawer__body {
-  
-    overflow: auto;
+
+  overflow: auto;
 }
 </style>

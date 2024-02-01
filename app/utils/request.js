@@ -23,8 +23,9 @@ function baseRequest(url, method, data, {
 		header = HEADERPARAMS;
 	}
 	if (!noAuth) {
+		console.log(store.state.app.token)
 		//登录过期自动登录
-		if (!store.state.app.token && !checkLogin()) {
+		if (!store.state.app.token || !checkLogin()) {
 			toLogin();
 			return Promise.reject({
 				msg: '未登录'
@@ -44,6 +45,9 @@ function baseRequest(url, method, data, {
 				else if (res.data.code == 200)
 					reslove(res.data, res);
 				else if ([410000, 410001, 410002, 401].indexOf(res.data.code) !== -1) {
+					toLogin();
+					reject(res.data);
+				}else if ([500].indexOf(res.data.code) !== -1&&res.data.message=='登录信息已过期，请重新登录！') {
 					toLogin();
 					reject(res.data);
 				} else
