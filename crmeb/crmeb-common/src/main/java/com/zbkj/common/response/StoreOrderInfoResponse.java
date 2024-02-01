@@ -1,5 +1,6 @@
 package com.zbkj.common.response;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.zbkj.common.vo.StoreOrderInfoOldVo;
 import com.zbkj.common.model.system.SystemStore;
 import io.swagger.annotations.ApiModel;
@@ -141,4 +142,9 @@ public class StoreOrderInfoResponse implements Serializable {
 
     @ApiModelProperty(value = "退款时间")
     private Date refundReasonTime;
+
+    @TableField(value = "out_trade_no")
+    private String outTradeNo;
+
+
 }

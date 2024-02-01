@@ -1,5 +1,6 @@
 package com.zbkj.common.response;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.zbkj.common.vo.StoreOrderInfoOldVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -108,4 +109,6 @@ public class StoreOrderDetailResponse implements Serializable {
 
     @ApiModelProperty(value = "是否改价,0-否，1-是")
     private Boolean isAlterPrice;
+    @TableField(value = "out_trade_no")
+    private String outTradeNo;
 }

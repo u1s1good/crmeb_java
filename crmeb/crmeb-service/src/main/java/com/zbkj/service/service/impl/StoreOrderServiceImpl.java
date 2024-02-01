@@ -141,7 +141,7 @@ public class StoreOrderServiceImpl extends ServiceImpl<StoreOrderDao, StoreOrder
         QueryWrapper<StoreOrder> queryWrapper = new QueryWrapper<>();
         queryWrapper.select("id", "order_id", "uid", "real_name", "pay_price", "pay_type", "create_time", "status", "refund_status"
                 , "refund_reason_wap_img", "refund_reason_wap_explain", "refund_reason_wap", "refund_reason", "refund_reason_time"
-                , "is_del", "combination_id", "pink_id", "seckill_id", "bargain_id", "verify_code", "remark", "paid", "is_system_del", "shipping_type", "type", "is_alter_price");
+                , "is_del", "combination_id", "pink_id", "seckill_id", "bargain_id", "verify_code", "remark", "paid", "is_system_del", "shipping_type", "type", "is_alter_price","out_trade_no");
         if (StrUtil.isNotBlank(request.getOrderNo())) {
             queryWrapper.like("order_id", request.getOrderNo());
         }
@@ -482,14 +482,14 @@ public class StoreOrderServiceImpl extends ServiceImpl<StoreOrderDao, StoreOrder
         User user = userService.getById(storeOrder.getUid());
 
         //退款
-        if (storeOrder.getPayType().equals(Constants.PAY_TYPE_WE_CHAT) && request.getAmount().compareTo(BigDecimal.ZERO) > 0) {
-            try {
-                storeOrderRefundService.refund(request, storeOrder);
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new CrmebException("微信申请退款失败！");
-            }
-        }
+//        if (storeOrder.getPayType().equals(Constants.PAY_TYPE_WE_CHAT) && request.getAmount().compareTo(BigDecimal.ZERO) > 0) {
+//            try {
+//                storeOrderRefundService.refund(request, storeOrder);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                throw new CrmebException("微信申请退款失败！");
+//            }
+//        }
 
         //修改订单退款状态
         storeOrder.setRefundStatus(3);
@@ -540,7 +540,11 @@ public class StoreOrderServiceImpl extends ServiceImpl<StoreOrderDao, StoreOrder
         StoreOrderInfoResponse storeOrderInfoResponse = new StoreOrderInfoResponse();
         BeanUtils.copyProperties(storeOrder, storeOrderInfoResponse);
         List<StoreOrderInfoOldVo> orderInfos = StoreOrderInfoService.getOrderListByOrderId(storeOrder.getId());
+
+
         storeOrderInfoResponse.setOrderInfo(orderInfos);
+        storeOrderInfoResponse.setOutTradeNo(storeOrder.getOutTradeNo());
+
         storeOrderInfoResponse.setPayTypeStr(getPayType(storeOrder.getPayType()));
         storeOrderInfoResponse.setStatusStr(getStatus(storeOrder));
         if (ObjectUtil.isNotNull(storeOrder.getStoreId()) && storeOrder.getStoreId() > 0) {

@@ -170,6 +170,7 @@ public class CallbackServiceImpl implements CallbackService {
                 Boolean execute = transactionTemplate.execute(e -> {
                     storeOrder.setPaid(true);
                     storeOrder.setPayTime(DateUtil.nowDateTime());
+                    storeOrder.setOutTradeNo(callbackVo.getOutTradeNo());
                     storeOrderService.updateById(storeOrder);
                     if (storeOrder.getUseIntegral() > 0) {
                         userService.updateIntegral(user, storeOrder.getUseIntegral(), "sub");
