@@ -60,7 +60,7 @@
       <el-dialog v-model="modalMap" title='上传经纬度' :visible.sync="modalMap" append-to-body class="mapBox" width="500px">
         <iframe
           id="mapPage" width="100%" height="100%" frameborder=0
-          v-bind:src="keyUrl"
+          v-bind:src="keyUrl" allow="geolocation *;"
         ></iframe>
       </el-dialog>
     </template>

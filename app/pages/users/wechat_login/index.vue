@@ -18,10 +18,10 @@
 			</view>
 			<view class="btn-wrapper">
 				<!-- #ifdef H5 -->
-				<button hover-class="none" @click="wechatLogin" class="bg-green btn1">微信登录</button>
+				<button hover-class="none" @click="wechatLogin" class="bg-green btn1">手机号快捷登录</button>
 				<!-- #endif -->
 				<!-- #ifdef MP -->
-				<button hover-class="none" @tap="getUserProfile" class="bg-green btn1">微信登录</button>
+				<button hover-class="none" @tap="getUserProfile" class="bg-green btn1">手机号快捷登录</button>
 				<!-- #endif -->
 				<!-- <button hover-class="none" @click="isUp = true" class="btn2">手机号登录</button> -->
 			</view>

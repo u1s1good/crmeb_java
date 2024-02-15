@@ -5,34 +5,39 @@
 				<view class='list borRadius14'>
 					<view class="item acea-row row-between-wrapper">
 						<view>头像</view>
-						<view class="pictrue" @click.stop='uploadpic'>
-							<image :src='newAvatar ? newAvatar : userInfo.avatar'></image>
-							<image src='../../../static/images/alter.png' class="alter"></image>
+						<view class="pictrue">
+							<button class="avatar-wrapper" open-type="chooseAvatar" @chooseavatar="onChooseAvatar">
+								<image :src='newAvatar ? newAvatar : form.avatar'></image>
+								<image src='../../../static/images/alter.png' class="alter"></image>
+							</button>
+
 						</view>
+						
 					</view>
 					<view class='item acea-row row-between-wrapper'>
 						<view>昵称</view>
-						<view class='input'><input type='text' name='nickname' :value='userInfo.nickname'></input>
+						<view class='input'><input type='nickname' name='nickname' :value='form.nickname'></input>
 						</view>
 					</view>
-					<view class='item acea-row row-between-wrapper'>
+					<view class='item acea-row row-between-wrapper' v-if="!first">
 						<view>手机号码</view>
-						<view class='input'><input type='text' name='phone' :value='userInfo.phone'></input>
+						<view class='input'><input type='text' name='phone' :value='form.phone'
+								disabled="true"></input>
 						</view>
 					</view>
-					
-					
+
+
 					<!-- #ifdef MP -->
-					<view class='item acea-row row-between-wrapper'>
+					<view class='item acea-row row-between-wrapper' v-if="!first">
 						<view>权限设置</view>
 						<view class="input" @click="Setting">
 							点击管理<text class="iconfont icon-xiangyou"></text>
 						</view>
 					</view>
 					<!-- #endif -->
-					
+
 				</view>
-				<button class='modifyBnt bg-color' formType="submit">保存修改</button>
+				<button class='modifyBnt bg-color' formType="submit">{{first?'完成设置':'保存修改'}}</button>
 				<!-- #ifdef H5 -->
 				<view class="logOut cart-color acea-row row-center-wrapper" @click="outLogin"
 					v-if="!this.$wechat.isWeixin()">退出登录</view>
@@ -76,14 +81,25 @@
 				userIndex: 0,
 				newAvatar: '',
 				isAuto: false, //没有授权的不会自动授权
-				isShowAuth: false //是否隐藏授权
+				isShowAuth: false ,//是否隐藏授权
+				first:false,//是否是注册后进入
+				form:{}//用来修改的用户信息
 			};
 		},
 		computed: mapGetters(['isLogin', 'uid', 'userInfo']),
-		onLoad() {
+		onLoad(option) {
 			if (!this.isLogin) {
 				toLogin();
 			}
+			this.form=JSON.parse(JSON.stringify(this.userInfo))
+			if(option.first){
+				this.first=option.first
+				this.form.nickname=''
+				uni.setNavigationBarTitle({
+					title: '基础信息'
+				});
+			}
+			
 		},
 		methods: {
 			// 授权关闭
@@ -145,6 +161,20 @@
 				});
 			},
 
+			onChooseAvatar: function(e) {
+				let that = this;
+				console.log(e.detail.avatarUrl)
+				that.$util.uploadImage({
+					url: 'user/upload/image',
+					name: 'multipart',
+					model: "maintain",
+					pid: 0,
+					temp:e.detail.avatarUrl
+				}, function(res) {
+					that.newAvatar = res.data.url;
+				});
+			},
+
 			/**
 			 * 提交修改
 			 */
@@ -152,9 +182,9 @@
 				let that = this,
 					value = e.detail.value
 				if (!value.nickname) return that.$util.Tips({
-					title: '用户姓名不能为空'
+					title: '昵称不能为空'
 				});
-				value.avatar = that.newAvatar?that.newAvatar:that.userInfo.avatar;
+				value.avatar = that.newAvatar ? that.newAvatar : that.form.avatar;
 				userEdit(value).then(res => {
 					that.$store.commit("changInfo", {
 						amount1: 'avatar',
@@ -297,13 +327,13 @@
 		border-radius: 32rpx
 	}
 
-	.personal-data .list .item .pictrue {
+	.personal-data .list .item .pictrue button {
 		width: 88rpx;
 		height: 88rpx;
 		position: relative;
 	}
 
-	.personal-data .list .item .pictrue image {
+	.personal-data .list .item .pictrue button image {
 		width: 100%;
 		height: 100%;
 		border-radius: 50%;

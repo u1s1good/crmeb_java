@@ -92,8 +92,27 @@
 					uni.hideLoading();
 					that.userInfo = res.data
 					that.$store.commit("UPDATE_USERINFO", res.data);
-					that.isStatus = true
-					this.close()
+					if(res.data.nickname=='微信用户'){
+						uni.showModal({
+							title: '提示',
+							content: '为更好的为您服务，请前往设置头像与昵称',
+							success: function (res) {
+								if (res.confirm) {
+									uni.redirectTo({
+										url: '/pages/users/user_info/index?first=true'
+									});
+								} else if (res.cancel) {
+									that.isStatus = true
+									that.close()
+								}
+							}
+						});
+					}
+					else{
+						that.isStatus = true
+						that.close()
+					}
+					
 				});
 			},
 			// #endif

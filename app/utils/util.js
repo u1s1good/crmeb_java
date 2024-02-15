@@ -2,7 +2,9 @@ import {
 	TOKENNAME,
 	HTTP_REQUEST_URL
 } from '../config/app.js';
-import {HTTP_ADMIN_URL} from '@/config/app.js';
+import {
+	HTTP_ADMIN_URL
+} from '@/config/app.js';
 import store from '../store';
 import {
 	pathToBase64
@@ -324,7 +326,7 @@ export default {
 	 * @param string count 剩余人数
 	 * @param function successFn 回调函数
 	 */
-	activityCanvas: function(arrImages, storeName, price, people, count,num,successFn) {
+	activityCanvas: function(arrImages, storeName, price, people, count, num, successFn) {
 		let that = this;
 		let rain = 2;
 		const context = uni.createCanvasContext('activityCanvas');
@@ -339,33 +341,34 @@ export default {
 			src: arrImages[0],
 			success: function(res) {
 				context.drawImage(arrImages[0], 0, 0, 594, 850);
-				context.setFontSize(14*rain);
+				context.setFontSize(14 * rain);
 				context.setFillStyle('#333333');
-				that.canvasWraptitleText(context, storeName, 110*rain, 110*rain, 230*rain, 30*rain, 1)
-				context.drawImage(arrImages[2], 68*rain, 194*rain, 160*rain, 160*rain);
+				that.canvasWraptitleText(context, storeName, 110 * rain, 110 * rain, 230 * rain, 30 *
+					rain, 1)
+				context.drawImage(arrImages[2], 68 * rain, 194 * rain, 160 * rain, 160 * rain);
 				context.save();
 
-				context.setFontSize(14*rain);
+				context.setFontSize(14 * rain);
 				context.setFillStyle('#fc4141');
-				context.fillText('￥', 157*rain, 145*rain);
+				context.fillText('￥', 157 * rain, 145 * rain);
 
-				context.setFontSize(24*rain);
+				context.setFontSize(24 * rain);
 				context.setFillStyle('#fc4141');
-				context.fillText(price, 170*rain, 145*rain);
+				context.fillText(price, 170 * rain, 145 * rain);
 
-				context.setFontSize(10*rain);
+				context.setFontSize(10 * rain);
 				context.setFillStyle('#fff');
-				context.fillText(people, 118*rain, 143*rain);
+				context.fillText(people, 118 * rain, 143 * rain);
 
 
-				context.setFontSize(12*rain);
+				context.setFontSize(12 * rain);
 				context.setFillStyle('#666666');
 				context.setTextAlign('center');
-				context.fillText( count , (167-num)*rain, 166*rain);
+				context.fillText(count, (167 - num) * rain, 166 * rain);
 
-				that.handleBorderRect(context, 27*rain, 94*rain, 75*rain, 75*rain, 6*rain);
+				that.handleBorderRect(context, 27 * rain, 94 * rain, 75 * rain, 75 * rain, 6 * rain);
 				context.clip();
-				context.drawImage(arrImages[1], 27*rain, 94*rain, 75*rain, 75*rain);
+				context.drawImage(arrImages[1], 27 * rain, 94 * rain, 75 * rain, 75 * rain);
 				context.draw(true, function() {
 					uni.canvasToTempFilePath({
 						canvasId: 'activityCanvas',
@@ -453,7 +456,8 @@ export default {
 				uni.showLoading({
 					title: '图片上传中',
 				});
-				let urlPath = HTTP_ADMIN_URL + '/api/admin/upload/image' + "?model=" + model + "&pid=" + pid
+				let urlPath = HTTP_ADMIN_URL + '/api/admin/upload/image' + "?model=" + model + "&pid=" +
+					pid
 				let localPath = res.tempFilePaths[0];
 				uni.uploadFile({
 					url: urlPath,
@@ -503,6 +507,71 @@ export default {
 			}
 		})
 	},
+	/*
+	 * 图片上传
+	 * @param object opt
+	 * @param callable successCallback 成功执行方法 data 
+	 * @param callable errorCallback 失败执行方法 
+	 */
+	uploadImage: function(opt, successCallback, errorCallback) {
+		let that = this;
+		if (typeof opt === 'string') {
+			let url = opt;
+			opt = {};
+			opt.url = url;
+		}
+		let count = opt.count || 1,
+			sizeType = opt.sizeType || ['compressed'],
+			sourceType = opt.sourceType || ['album', 'camera'],
+			is_load = opt.is_load || true,
+			uploadUrl = opt.url || '',
+			inputName = opt.name || 'pics',
+			pid = opt.pid,
+			model = opt.model,
+			temp = opt.temp;
+		uni.showLoading({
+			title: '图片上传中',
+		});
+		let urlPath = HTTP_ADMIN_URL + '/api/admin/upload/image' + "?model=" + model + "&pid=" + pid
+		let localPath = temp;
+		uni.uploadFile({
+			url: urlPath,
+			filePath: localPath,
+			name: inputName,
+
+			header: {
+				// #ifdef MP
+				"Content-Type": "multipart/form-data",
+				// #endif
+				[TOKENNAME]: store.state.app.token
+			},
+			success: function(res) {
+				uni.hideLoading();
+				if (res.statusCode == 403) {
+					that.Tips({
+						title: res.data
+					});
+				} else {
+					let data = res.data ? JSON.parse(res.data) : {};
+					if (data.code == 200) {
+						data.data.localPath = localPath;
+						successCallback && successCallback(data)
+					} else {
+						errorCallback && errorCallback(data);
+						that.Tips({
+							title: data.message
+						});
+					}
+				}
+			},
+			fail: function(res) {
+				uni.hideLoading();
+				that.Tips({
+					title: '上传图片失败'
+				});
+			}
+		})
+	},
 	/**
 	 * 处理服务器扫码带进来的参数
 	 * @param string param 扫码携带参数
@@ -536,23 +605,23 @@ export default {
 	/**根据格式组装公共参数
 	 * @param {Object} value
 	 */
-	formatMpQrCodeData(value){
+	formatMpQrCodeData(value) {
 		let values = value.split(',');
 		let result = {};
-		if(values.length === 2){
+		if (values.length === 2) {
 			let v1 = values[0].split(":");
 			if (v1[0] === 'pid') {
 				result.spread = v1[1];
-			} else{
+			} else {
 				result.id = v1[1];
 			}
 			let v2 = values[1].split(":");
 			if (v2[0] === 'pid') {
 				result.spread = v2[1];
-			}else{
+			} else {
 				result.id = v2[1];
 			}
-		}else{
+		} else {
 			result = values[0].split(":")[1];
 		}
 		return result;

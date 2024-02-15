@@ -8,12 +8,12 @@
 				</view>
 				<view class='bnt' @tap='searchBut'>搜索</view>
 			</view>
-			<view class='title'>热门搜索</view>
+			<!-- <view class='title'>热门搜索</view>
 			<view class='list acea-row'>
 				<block v-for="(item,index) in hotSearchList" :key="index">
 					<view class='item' @tap='setHotSearchValue(item.title)'>{{item.title}}</view>
 				</block>
-			</view>
+			</view> -->
 			<view class='line'></view>
 			<goodList :bastList="bastList" v-if="bastList.length > 0"></goodList>
 			<view class='loadingicon acea-row row-center-wrapper' v-if="bastList.length > 0">

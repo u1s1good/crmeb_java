@@ -520,7 +520,7 @@
             { required: true, message: '请输入单位', trigger: 'blur' }
           ],
           storeInfo: [
-            { required: true, message: '请输入商品简介', trigger: 'blur' }
+            { required: false, message: '请输入商品简介', trigger: 'blur' }
           ],
           tempId: [
             { required: true, message: '请选择运费模板', trigger: 'change' }
