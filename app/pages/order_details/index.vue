@@ -19,7 +19,8 @@
 					<view class='navCon acea-row row-between-wrapper'>
 						<view :class="!orderInfo.paid ? 'on':''">待付款</view>
 						<view :class="orderInfo.paid && orderInfo.status == 0 ? 'on':''">
-							{{orderInfo.shippingType==1 ? '待发货':'待核销'}}</view>
+							{{orderInfo.shippingType==1 ? '待发货':'待核销'}}
+						</view>
 						<view :class="orderInfo.status == 1 ? 'on':''" v-if="orderInfo.shippingType == 1">待收货</view>
 						<!-- <view :class="orderInfo.status == 2 ? 'on':''">待评价</view> -->
 						<view :class="orderInfo.status == 3 ? 'on':''">已完成</view>
@@ -94,8 +95,8 @@
 					<view>{{orderInfo.systemStore?orderInfo.systemStore.detailedAddress:''}}</view>
 				</view>
 
-				<orderGoods :evaluate='evaluate' :productType="orderInfo.type" :orderId="order_id" :ids="id" :uniId="uniId" :cartInfo="cartInfo"
-					:jump="true"></orderGoods>
+				<orderGoods :evaluate='evaluate' :productType="orderInfo.type" :orderId="order_id" :ids="id"
+					:uniId="uniId" :cartInfo="cartInfo" :jump="true"></orderGoods>
 				<!-- #ifndef MP -->
 				<div class="goodCall borRadius14" @click="kefuClick">
 					<span class="iconfont icon-kefu"></span><span>联系客服</span>
@@ -116,7 +117,9 @@
 						<image src="/static/images/shuoming.png" mode=""></image>
 						{{orderInfo.refundStatus==1?'商家审核中':orderInfo.refundStatus==2?'商家已退款':'商家拒绝退款'}}
 					</view>
-					<view class="con pad30">{{orderInfo.refundStatus==1 ? "您已成功发起退款申请，请耐心等待商家处理；退款前请与商家协商一致，有助于更好的处理售后问题": orderInfo.refundStatus==2? "退款已成功受理，如商家已寄出商品请尽快退回；感谢您的支持": "拒绝原因：" + orderInfo.refundReason}}</view>
+					<view class="con pad30">
+						{{orderInfo.refundStatus==1 ? "您已成功发起退款申请，请耐心等待商家处理；退款前请与商家协商一致，有助于更好的处理售后问题": orderInfo.refundStatus==2? "退款已成功受理，如商家已寄出商品请尽快退回；感谢您的支持": "拒绝原因：" + orderInfo.refundReason}}
+					</view>
 				</view>
 				<view class='wrapper borRadius14'>
 					<view class='item acea-row row-between'>
@@ -149,7 +152,7 @@
 					</view>
 				</view>
 				<!-- 退款订单详情 "-->
-				<view v-if="isGoodsReturn" class='wrapper borRadius14' >
+				<view v-if="isGoodsReturn" class='wrapper borRadius14'>
 					<view class='item acea-row row-between'>
 						<view>收货人：</view>
 						<view class='conter'>{{orderInfo.realName}}</view>
@@ -176,13 +179,14 @@
 						<view class='item acea-row row-between'>
 							<view>快递号：</view>
 							<view class='conter'>{{orderInfo.deliveryId || ''}}
-							<!-- #ifndef H5 -->
-							<text class='copy' @tap='copy(orderInfo.deliveryId)'>复制</text>
-							<!-- #endif -->
-							<!-- #ifdef H5 -->
-							<text class='copy copy-data' :data-clipboard-text="orderInfo.deliveryId">复制</text>
-							<!-- #endif --></view>
-							
+								<!-- #ifndef H5 -->
+								<text class='copy' @tap='copy(orderInfo.deliveryId)'>复制</text>
+								<!-- #endif -->
+								<!-- #ifdef H5 -->
+								<text class='copy copy-data' :data-clipboard-text="orderInfo.deliveryId">复制</text>
+								<!-- #endif -->
+							</view>
+
 						</view>
 					</view>
 					<view class='wrapper borRadius14' v-else-if='orderInfo.deliveryType=="send"'>
@@ -222,7 +226,7 @@
 					</view>
 					<view class='item acea-row row-between' v-if="orderInfo.useIntegral > 0">
 						<view>积分抵扣：</view>
-							<view class='conter'>-￥{{orderInfo.deductionPrice}}</view>
+						<view class='conter'>-￥{{orderInfo.deductionPrice}}</view>
 					</view>
 					<view class='actualPay acea-row row-right'>实付款：<text
 							class='money font-color'>￥{{orderInfo.payPrice}}</text></view>
@@ -233,12 +237,16 @@
 					<view class='bnt bg-color' v-if="!orderInfo.paid" @tap='pay_open(orderInfo.orderId)'>立即付款</view>
 					<!-- #ifdef MP -->
 					<view @tap="openSubcribe('/pages/users/goods_return/index?orderId='+orderInfo.orderId)"
-						class='bnt cancel' v-else-if="orderInfo.paid === true && orderInfo.refundStatus === 0 && orderInfo.type!==1 && type==='normal'">申请退款
+						class='bnt cancel'
+						v-else-if="orderInfo.paid === true && orderInfo.refundStatus === 0 && orderInfo.type!==1 && type==='normal'">
+						申请退款
 					</view>
 					<!-- #endif -->
 					<!-- #ifndef MP -->
 					<navigator hover-class="none" :url="'/pages/users/goods_return/index?orderId='+orderInfo.orderId"
-						class='bnt cancel' v-else-if="orderInfo.paid === true && orderInfo.refundStatus === 0 && orderInfo.type!==1 && type==='normal'">申请退款
+						class='bnt cancel'
+						v-else-if="orderInfo.paid === true && orderInfo.refundStatus === 0 && orderInfo.type!==1 && type==='normal'">
+						申请退款
 					</navigator>
 					<!-- #endif -->
 					<view class='bnt bg-color' v-if="orderInfo.combinationId > 0" @tap='goJoinPink'>查看拼团</view>
@@ -247,7 +255,8 @@
 					</navigator> -->
 					<view class='bnt bg-color' v-if="orderInfo.status==1" @tap='confirmOrder'>确认收货</view>
 					<view class='bnt cancel' v-if="orderInfo.status==3" @tap='delOrder'>删除订单</view>
-					<view class='bnt bg-color' v-if="orderInfo.status==3 && orderInfo.type!==1" @tap='goOrderConfirm'>再次购买</view>
+					<view class='bnt bg-color' v-if="orderInfo.status==3 && orderInfo.type!==1" @tap='goOrderConfirm'>
+						再次购买</view>
 				</view>
 			</view>
 
@@ -262,10 +271,11 @@
 	</view>
 </template>
 <style scoped lang="scss">
-	.shuoming{
+	.shuoming {
 		width: 32rpx;
 		height: 32rpx;
 	}
+
 	.goodCall {
 		color: $theme-color;
 		text-align: center;
@@ -599,7 +609,7 @@
 	}
 
 	.refund {
-		padding:  0 !important;
+		padding: 0 !important;
 		margin-top: 15rpx;
 		background-color: #fff;
 
@@ -610,9 +620,9 @@
 			color: #333;
 			height: 86rpx;
 			border-bottom: 1px solid #f5f5f5;
-            font-weight: 400;
+			font-weight: 400;
 			padding: 0 24rpx;
-			
+
 			image {
 				width: 32rpx;
 				height: 32rpx;
@@ -736,7 +746,7 @@
 				});
 			});
 			// #endif
-			 
+
 		},
 		methods: {
 			kefuClick() {
@@ -860,12 +870,12 @@
 					};
 					if (that.orderInfo.shippingType == 2 && that.orderInfo.paid) that.markCode(res.data
 						.verifyCode);
-					if(that.orderInfo.refundStatus>0){
+					if (that.orderInfo.refundStatus > 0) {
 						uni.setNavigationBarColor({
-						    frontColor: '#ffffff',
-						    backgroundColor: '#666666'
+							frontColor: '#ffffff',
+							backgroundColor: '#666666'
 						})
-					}	
+					}
 				}).catch(err => {
 					uni.hideLoading();
 					that.$util.Tips({
@@ -931,7 +941,7 @@
 				if (type == 2) status.class_status = 3; //确认收货
 				if (type == 4 || type == 0) status.class_status = 4; //删除订单
 				if (!seckill_id && !bargain_id && !combination_id && (type == 3 || type == 4)) status.class_status =
-				5; //再次购买
+					5; //再次购买
 				this.$set(this, 'status', status);
 			},
 			/**
@@ -948,32 +958,87 @@
 			 * 
 			 */
 			goOrderConfirm: function() {
-				this.$Order.getPreOrder("again",[{
+				this.$Order.getPreOrder("again", [{
 					orderNo: this.order_id
 				}]);
 			},
 			confirmOrder: function() {
 				let that = this;
-				uni.showModal({
-					title: '确认收货',
-					content: '为保障权益，请收到货确认无误后，再确认收货',
-					success: function(res) {
-						if (res.confirm) {
-							orderTake(that.id).then(res => {
-								return that.$util.Tips({
-									title: '操作成功',
-									icon: 'success'
-								}, function() {
-									that.getOrderInfo();
+				if (wx.openBusinessView) {
+					wx.openBusinessView({
+						businessType: 'weappOrderConfirm',
+						extraData: {
+							transaction_id: that.orderInfo.transactionId
+						},
+						success: e => {
+							if (e.extraData.status === 'success') {
+								// 用户确认收货成功，再执行自己的代码
+								orderTake(that.id).then(res => {
+									return that.$util.Tips({
+										title: '操作成功',
+										icon: 'success'
+									}, function() {
+										that.getOrderInfo();
+									});
+								}).catch(err => {
+									return that.$util.Tips({
+										title: err
+									});
+								})
+							} else if (e.extraData.status === 'fail') {
+								// 用户确认收货失败
+								uni.showToast({
+									title: "确认收货失败!",
+									icon: "none",
 								});
-							}).catch(err => {
-								return that.$util.Tips({
-									title: err
+							} else if (e.extraData.status === 'cancel') {
+								// 用户取消
+								uni.showToast({
+									title: "取消确认收货!",
+									icon: "none",
 								});
-							})
+							}
+						},
+						fail: e => {
+							uni.showToast({
+								title: "确认收货失败",
+								duration: 2000,
+								icon: "none",
+							});
+						},
+						complete: e => {
+							console.log("e3", e)
+							console.log("无论是否成功都会执行")
 						}
-					}
-				})
+					});
+				} else {
+					//引导用户升级微信版本
+					uni.showToast({
+						title: "请升级微信版本",
+						duration: 3000,
+						icon: "none",
+					});
+				}
+				// uni.showModal({
+				// 	title: '确认收货',
+				// 	content: '为保障权益，请收到货确认无误后，再确认收货',
+				// 	success: function(res) {
+				// 		if (res.confirm) {
+				// 			orderTake(that.id).then(res => {
+				// 				return that.$util.Tips({
+				// 					title: '操作成功',
+				// 					icon: 'success'
+				// 				}, function() {
+				// 					that.getOrderInfo();
+				// 				});
+				// 			}).catch(err => {
+				// 				return that.$util.Tips({
+				// 					title: err
+				// 				});
+				// 			})
+				// 		}
+				// 	}
+				// })
 			},
 			/**
 			 * 
