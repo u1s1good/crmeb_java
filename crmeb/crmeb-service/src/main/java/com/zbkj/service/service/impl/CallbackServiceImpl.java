@@ -140,6 +140,7 @@ public class CallbackServiceImpl implements CallbackService {
             if (Constants.SERVICE_PAY_TYPE_ORDER.equals(attachVo.getType())) {
                 StoreOrder orderParam = new StoreOrder();
                 orderParam.setOutTradeNo(callbackVo.getOutTradeNo());
+                orderParam.setTransactionId(callbackVo.getTransactionId());
                 orderParam.setUid(attachVo.getUserId());
 
                 StoreOrder storeOrder = storeOrderService.getInfoByEntity(orderParam);
@@ -171,66 +172,13 @@ public class CallbackServiceImpl implements CallbackService {
                     storeOrder.setPaid(true);
                     storeOrder.setPayTime(DateUtil.nowDateTime());
                     storeOrder.setOutTradeNo(callbackVo.getOutTradeNo());
+                    storeOrder.setTransactionId(callbackVo.getTransactionId());
                     storeOrderService.updateById(storeOrder);
                     if (storeOrder.getUseIntegral() > 0) {
                         userService.updateIntegral(user, storeOrder.getUseIntegral(), "sub");
                     }
                     wechatPayInfoService.updateById(wechatPayInfo);
 
-                    // 处理拼团
-//                    if (storeOrder.getCombinationId() > 0) {
-//                        // 判断拼团团长是否存在
-//                        StorePink headPink = new StorePink();
-//                        Integer pinkId = storeOrder.getPinkId();
-//                        if (pinkId > 0) {
-//                            headPink = storePinkService.getById(pinkId);
-//                            if (ObjectUtil.isNull(headPink) || headPink.getIsRefund().equals(true) || headPink.getStatus() == 3) {
-//                                pinkId = 0;
-//                            }
-//                        }
-//                        StoreCombination storeCombination = storeCombinationService.getById(storeOrder.getCombinationId());
-//                        // 如果拼团人数已满，重新开团
-//                        if (pinkId > 0) {
-//                            Integer count = storePinkService.getCountByKid(pinkId);
-//                            if (count >= storeCombination.getPeople()) {
-//                                pinkId = 0;
-//                            }
-//                        }
-//                        // 生成拼团表数据
-//                        StorePink storePink = new StorePink();
-//                        storePink.setUid(user.getUid());
-//                        storePink.setAvatar(user.getAvatar());
-//                        storePink.setNickname(user.getNickname());
-//                        storePink.setOrderId(storeOrder.getOrderId());
-//                        storePink.setOrderIdKey(storeOrder.getId());
-//                        storePink.setTotalNum(storeOrder.getTotalNum());
-//                        storePink.setTotalPrice(storeOrder.getTotalPrice());
-//                        storePink.setCid(storeCombination.getId());
-//                        storePink.setPid(storeCombination.getProductId());
-//                        storePink.setPeople(storeCombination.getPeople());
-//                        storePink.setPrice(storeCombination.getPrice());
-//                        Integer effectiveTime = storeCombination.getEffectiveTime();// 有效小时数
-//                        DateTime dateTime = cn.hutool.core.date.DateUtil.date();
-//                        storePink.setAddTime(dateTime.getTime());
-//                        if (pinkId > 0) {
-//                            storePink.setStopTime(headPink.getStopTime());
-//                        } else {
-//                            DateTime hourTime = cn.hutool.core.date.DateUtil.offsetHour(dateTime, effectiveTime);
-//                            long stopTime =  hourTime.getTime();
-//                            if (stopTime > storeCombination.getStopTime()) {
-//                                stopTime = storeCombination.getStopTime();
-//                            }
-//                            storePink.setStopTime(stopTime);
-//                        }
-//                        storePink.setKId(pinkId);
-//                        storePink.setIsTpl(false);
-//                        storePink.setIsRefund(false);
-//                        storePink.setStatus(1);
-//                        storePinkService.save(storePink);
-//                        // 如果是开团，需要更新订单数据
-//                        storeOrder.setPinkId(storePink.getId());
-//                        storeOrderService.updateById(storeOrder);
-//                    }
 
                     return Boolean.TRUE;
                 });

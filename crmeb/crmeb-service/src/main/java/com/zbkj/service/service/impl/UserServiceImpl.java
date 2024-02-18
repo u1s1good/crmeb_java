@@ -31,6 +31,7 @@ import com.zbkj.common.utils.DateUtil;
 import com.zbkj.common.utils.RedisUtil;
 import com.zbkj.common.vo.dateLimitUtilVo;
 import com.zbkj.service.dao.UserDao;
+import com.zbkj.service.dao.UserTokenDao;
 import com.zbkj.service.service.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -65,6 +66,8 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
     @Resource
     private UserDao userDao;
+    @Resource
+    private UserTokenDao userTokenDao;
 
     @Autowired
     private UserBillService userBillService;
@@ -1746,6 +1749,13 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             throw new CrmebException("用户不存在");
         }
         return user;
+    }
+
+    @Override
+    public UserToken getUserTokenByUid(Integer id) {
+        QueryWrapper<UserToken> wrapper = new QueryWrapper();
+        wrapper.eq("uid",id);
+        return userTokenDao.selectOne(wrapper);
     }
 
     /**

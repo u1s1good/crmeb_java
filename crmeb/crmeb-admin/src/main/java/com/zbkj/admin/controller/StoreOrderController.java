@@ -138,9 +138,11 @@ public class StoreOrderController {
     @ApiOperation(value = "发送货")
     @RequestMapping(value = "/send", method = RequestMethod.POST)
     public CommonResult<Boolean> send(@RequestBody @Validated StoreOrderSendRequest request) {
+
         if (storeOrderService.send(request)) {
             return CommonResult.success();
         }
+
         return CommonResult.failed();
     }
 

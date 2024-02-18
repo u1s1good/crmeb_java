@@ -54,7 +54,6 @@ public class StoreProductAddRequest implements Serializable {
     private String storeName;
 
     @ApiModelProperty(value = "商品简介", required = true)
-    @NotBlank(message = "商品简介不能为空")
     @Length(max = 256, message = "商品简介长度不能超过256个字符")
     private String storeInfo;
 

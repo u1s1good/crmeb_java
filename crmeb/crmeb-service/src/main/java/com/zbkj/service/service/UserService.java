@@ -3,6 +3,7 @@ package com.zbkj.service.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.zbkj.common.model.user.User;
+import com.zbkj.common.model.user.UserToken;
 import com.zbkj.common.request.*;
 import com.zbkj.common.response.*;
 
@@ -322,4 +323,6 @@ public interface UserService extends IService<User> {
      * @param id 用户uid
      */
     User getInfoByUid(Integer id);
+
+    UserToken getUserTokenByUid (Integer id);
 }

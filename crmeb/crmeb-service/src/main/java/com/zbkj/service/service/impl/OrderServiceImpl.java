@@ -6,6 +6,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zbkj.common.constants.*;
 import com.zbkj.common.exception.CrmebException;
 import com.zbkj.common.model.bargain.StoreBargain;
@@ -31,6 +32,7 @@ import com.zbkj.common.model.system.SystemStore;
 import com.zbkj.common.model.system.SystemUserLevel;
 import com.zbkj.common.model.user.User;
 import com.zbkj.common.model.user.UserAddress;
+import com.zbkj.common.model.wechat.WechatPayInfo;
 import com.zbkj.common.page.CommonPage;
 import com.zbkj.common.request.*;
 import com.zbkj.common.response.*;
@@ -38,6 +40,7 @@ import com.zbkj.common.utils.CrmebUtil;
 import com.zbkj.common.utils.DateUtil;
 import com.zbkj.common.utils.RedisUtil;
 import com.zbkj.common.vo.*;
+import com.zbkj.service.dao.WechatPayInfoDao;
 import com.zbkj.service.delete.OrderUtils;
 import com.zbkj.service.service.*;
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -115,6 +118,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private LogisticService logisticsService;
+
+    @Autowired
+    private WechatPayInfoDao wechatPayInfoDao;
 
 //    @Autowired
 //    private StoreSeckillService storeSeckillService;
@@ -512,6 +518,10 @@ public class OrderServiceImpl implements OrderService {
             throw new CrmebException("订单不存在");
         }
 
+        QueryWrapper<WechatPayInfo> qw = new QueryWrapper<>();
+        qw.eq("out_trade_no" ,storeOrder.getOutTradeNo());
+        WechatPayInfo wechatPayInfo = wechatPayInfoDao.selectOne(qw);
+        storeOrderDetailResponse.setTransactionId(wechatPayInfo.getTransactionId());
         BeanUtils.copyProperties(storeOrder, storeOrderDetailResponse);
         MyRecord orderStatusVo = getOrderStatusVo(storeOrder);
         // 订单详情对象列表
@@ -529,6 +539,9 @@ public class OrderServiceImpl implements OrderService {
             orderInfoResponse.setSku(e.getSku());
             infoResponseList.add(orderInfoResponse);
         });
+
+
+
         storeOrderDetailResponse.setOrderInfoList(infoResponseList);
 
         // 系统门店信息

@@ -111,4 +111,9 @@ public class StoreOrderDetailResponse implements Serializable {
     private Boolean isAlterPrice;
     @TableField(value = "out_trade_no")
     private String outTradeNo;
+
+    @TableField(value = "transaction_id")
+    private String transactionId;
+
+
 }

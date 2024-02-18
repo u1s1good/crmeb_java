@@ -283,6 +283,8 @@ public class WeChatConstants {
     public static final String REDIS_PUBLIC_JS_API_TICKET = "wechat_js_api_ticket";
     public static final Long REDIS_PUBLIC_JS_API_TICKET_EXPRESS = 7100L;
 
+    public static final String UPLOAD_SHIPPING = "https://api.weixin.qq.com/wxa/sec/order/upload_shipping_info?access_token={}";
+
     /**
      * --------------------------------------------------------------------------------------------------------
      * 以下为视频号相关部分
