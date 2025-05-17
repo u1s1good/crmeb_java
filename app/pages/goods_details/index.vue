@@ -1107,7 +1107,17 @@
 				if (this.isLogin === false) {
 					toLogin();
 				} else {
-					this.goCat(0);
+					let price = parseFloat(this.attr.productSelect.cart_num)*parseFloat(this.attr.productSelect.price)
+					if(price<388){
+						let num = Math.ceil(388/parseFloat(this.attr.productSelect.price))
+						this.$util.Tips({
+							title: `订单满388元起送，单独购买此商品需满${num}件，或添加至购物车合并购买`
+						});
+						this.attr.cartAttr = !this.isOpen ? true : false;
+					}else{
+						this.goCat(0);
+					}
+					
 				}
 			},
 			/**

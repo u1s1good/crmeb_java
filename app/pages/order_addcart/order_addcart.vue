@@ -512,7 +512,14 @@
 				let that = this,
 					selectValue = that.selectValue;
 				if (selectValue.length > 0) {
-					that.getPreOrder();
+					if(parseFloat(that.selectCountPrice)<388){
+						this.$util.Tips({
+							title: `订单满388元起送，请增加数量`
+						});
+					}else{
+						that.getPreOrder();
+					}
+					
 				} else {
 					return that.$util.Tips({
 						title: '请选择产品'
